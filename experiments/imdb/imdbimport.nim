@@ -4,7 +4,7 @@
 # to CSV, then imports into a Kuzu graph database.
 #
 # Only cares about actors in movies!  Things like writers,
-# directors, or TV shows are intentionally omitted.
+# directors, and TV shows are intentionally omitted.
 #
 # Compile:
 #   % nim c -d:release imdbdata.nim
@@ -45,11 +45,11 @@ for file in FILES:
 
     case file
         of "name.basics":
-            csv_file.write( "pid,name,birthYear,deathYear\n" )
+            csv_file.write( "aid,name,birthYear,deathYear\n" )
         of "title.basics":
             csv_file.write( "mid,title,year,durationMins\n" )
         of "title.principals":
-            csv_file.write( "pid,mid\n" )
+            csv_file.write( "aid,mid\n" )
 
     var line = ""
     while tsv_stream.readLine( line ):
@@ -57,50 +57,48 @@ for file in FILES:
         if c mod 1000 == 0: stderr.write( &"Parsing {file}... {c}\r" )
 
         var row = line.split( '\t' )
-        try:
-            case file
+        case file
 
-                # nconst primaryName birthYear deathYear primaryProfession knownForTitles
-                of "name.basics":
-                    row = row[0..3]
-                    row[0] = $row[0].replace( "nm" ).parseInt()
+            # nconst primaryName birthYear deathYear primaryProfession knownForTitles
+            of "name.basics":
+                row = row[0..3]
+                row[0] = $row[0].replace( "nm" ).parseInt()
 
-                # tconst titleType primaryTitle originalTitle isAdult startYear endYear runtimeMinutes genres
-                of "title.basics":
-                    if row[1] != "movie": continue
-                    row.delete( 1 )
-                    for i in 0..1: row.delete( 2 )
-                    row.delete( 3 )
-                    discard row.pop()
-                    row[0] = $row[0].replace( "tt" ).parseInt()
+            # tconst titleType primaryTitle originalTitle isAdult startYear endYear runtimeMinutes genres
+            of "title.basics":
+                if row[1] != "movie": continue
+                row.delete( 1 )
+                for i in 0..1: row.delete( 2 )
+                row.delete( 3 )
+                discard row.pop()
+                row[0] = $row[0].replace( "tt" ).parseInt()
 
-                # tconst ordering nconst category job characters
-                of "title.principals":
-                    if row[3] != "actor" and row[3] != "actress": continue
-                    row.delete( 1 )
-                    row = row[0..1]
-                    row[0] = $row[0].replace( "tt" ).parseInt()
-                    row[1] = $row[1].replace( "nm" ).parseInt()
+            # tconst ordering nconst category job characters
+            of "title.principals":
+                if row[3] != "actor" and row[3] != "actress": continue
+                row.delete( 1 )
+                row = row[0..1]
+                row[0] = $row[0].replace( "tt" ).parseInt()
+                row[1] = $row[1].replace( "nm" ).parseInt()
+                row = @[ row[1], row[0] ]
 
 
-            if file.contains( ".basics" ):
-                row.applyIt(
-                    # empty value / null
-                    if it == "\\N": ""
+        if file.contains( ".basics" ):
+            row.applyIt(
+                # empty value / null
+                if it == "\\N": ""
 
-                    # RFC 4180 escapes
-                    elif it.contains( "\"" ) or it.contains( ',' ):
-                        var value = it
-                        value = value.replace( "\"", "\"\"" )
-                        "\"" & value & "\""
+                # RFC 4180 escapes
+                elif it.contains( "\"" ) or it.contains( ',' ):
+                    var value = it
+                    value = value.replace( "\"", "\"\"" )
+                    value = value.replace( ",", "" )
+                    "\"" & value & "\""
 
-                    else: it
-                )
+                else: it
+            )
 
-            csv_file.write( row.join(","), "\n" )
-
-        except ValueError:
-            continue
+        csv_file.write( row.join(","), "\n" )
 
     tsv_stream.close()
     csv_file.close()
@@ -118,8 +116,8 @@ if not DB.fileExists:
     var duration = 0
 
     for schema in @[
-        """CREATE NODE TABLE Actor (actorId INT64, name STRING, birthYear INT, deathYear INT, PRIMARY KEY (actorId))""",
-        """CREATE NODE TABLE Movie (movieId INT64, title STRING, year INT, durationMins INT, PRIMARY KEY (movieId))""",
+        """CREATE NODE TABLE Actor (actorId INT64, name STRING, birthYear UINT16, deathYear UINT16, PRIMARY KEY (actorId))""",
+        """CREATE NODE TABLE Movie (movieId INT64, title STRING, year UINT16, durationMins INT, PRIMARY KEY (movieId))""",
         """CREATE REL TABLE ActedIn (FROM Actor TO Movie)"""
     ]:
         var result = conn.query( schema )
@@ -129,8 +127,8 @@ if not DB.fileExists:
     duration = 0
 
     for dataload in @[
-        """COPY Actor FROM "./name.basics.csv" (header=true, ignore_errors=true)""",
-        """COPY Movie FROM "./title.basics.csv" (header=true, ignore_errors=true)""",
+        """COPY Actor FROM "./name.basics.csv" (header=true)""",
+        """COPY Movie FROM "./title.basics.csv" (header=true)""",
         """COPY ActedIn FROM "./title.principals.csv" (header=true, ignore_errors=true)"""
     ]:
         echo dataload
