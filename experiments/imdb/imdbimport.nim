@@ -13,6 +13,7 @@
 # See: https://developer.imdb.com/non-commercial-datasets/
 
 import
+    std/dirs,
     std/os,
     std/sequtils,
     std/strformat,
@@ -53,52 +54,56 @@ for file in FILES:
 
     var line = ""
     while tsv_stream.readLine( line ):
-        c += 1
-        if c mod 1000 == 0: stderr.write( &"Parsing {file}... {c}\r" )
+        try:
+            c += 1
+            if c mod 1000 == 0: stderr.write( &"Parsing {file}... {c}\r" )
 
-        var row = line.split( '\t' )
-        case file
+            var row = line.split( '\t' )
+            case file
 
-            # nconst primaryName birthYear deathYear primaryProfession knownForTitles
-            of "name.basics":
-                row = row[0..3]
-                row[0] = $row[0].replace( "nm" ).parseInt()
+                # nconst primaryName birthYear deathYear primaryProfession knownForTitles
+                of "name.basics":
+                    row = row[0..3]
+                    row[0] = $row[0].replace( "nm" ).parseInt()
 
-            # tconst titleType primaryTitle originalTitle isAdult startYear endYear runtimeMinutes genres
-            of "title.basics":
-                if row[1] != "movie": continue
-                row.delete( 1 )
-                for i in 0..1: row.delete( 2 )
-                row.delete( 3 )
-                discard row.pop()
-                row[0] = $row[0].replace( "tt" ).parseInt()
+                # tconst titleType primaryTitle originalTitle isAdult startYear endYear runtimeMinutes genres
+                of "title.basics":
+                    if row[1] != "movie": continue
+                    row.delete( 1 )
+                    for i in 0..1: row.delete( 2 )
+                    row.delete( 3 )
+                    discard row.pop()
+                    row[0] = $row[0].replace( "tt" ).parseInt()
 
-            # tconst ordering nconst category job characters
-            of "title.principals":
-                if row[3] != "actor" and row[3] != "actress": continue
-                row.delete( 1 )
-                row = row[0..1]
-                row[0] = $row[0].replace( "tt" ).parseInt()
-                row[1] = $row[1].replace( "nm" ).parseInt()
-                row = @[ row[1], row[0] ]
+                # tconst ordering nconst category job characters
+                of "title.principals":
+                    if row[3] != "actor" and row[3] != "actress": continue
+                    row.delete( 1 )
+                    row = row[0..1]
+                    row[0] = $row[0].replace( "tt" ).parseInt()
+                    row[1] = $row[1].replace( "nm" ).parseInt()
+                    row = @[ row[1], row[0] ]
 
 
-        if file.contains( ".basics" ):
-            row.applyIt(
-                # empty value / null
-                if it == "\\N": ""
+            if file.contains( ".basics" ):
+                row.applyIt(
+                    # empty value / null
+                    if it == "\\N": ""
 
-                # RFC 4180 escapes
-                elif it.contains( "\"" ) or it.contains( ',' ):
-                    var value = it
-                    value = value.replace( "\"", "\"\"" )
-                    value = value.replace( ",", "" )
-                    "\"" & value & "\""
+                    # RFC 4180 escapes
+                    elif it.contains( "\"" ) or it.contains( ',' ):
+                        var value = it
+                        value = value.replace( "\"", "\"\"" )
+                        value = value.replace( ",", "" )
+                        "\"" & value & "\""
 
-                else: it
-            )
+                    else: it
+                )
 
-        csv_file.write( row.join(","), "\n" )
+            csv_file.write( row.join(","), "\n" )
+
+        except ValueError:
+            continue
 
     tsv_stream.close()
     csv_file.close()
@@ -109,10 +114,9 @@ for file in FILES:
 # Ok, now import into a fresh kuzu database.
 #
 
-var db   = newKuzuDatabase( DB )
-var conn = db.connect()
-
-if not DB.fileExists:
+if not DB.dirExists:
+    var db   = newKuzuDatabase( DB )
+    var conn = db.connect()
     var duration = 0
 
     for schema in @[

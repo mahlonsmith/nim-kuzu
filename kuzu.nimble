@@ -15,3 +15,10 @@ requires "nim ^= 2.0.0"
 task makewrapper, "Generate the C wrapper using Futhark":
     exec "nim c -d:futharkWrap --outdir=. src/kuzu.nim"
 
+task test, "Run the test suite.":
+    exec "testament all"
+    exec "testament html"
+
+task clean, "Remove all non-critical artifacts.":
+    exec "fossil clean --disable-undo --dotfiles --emptydirs -f -v"
+
