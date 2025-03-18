@@ -23,12 +23,19 @@ include
     "kuzu/connection.nim",
     "kuzu/queries.nim"
 
+
+proc kuzuVersionCompatible*(): bool =
+    ## Returns true if the system installed Kuzu library
+    ## is the expected version of this library wrapper.
+    result = KUZU_EXPECTED_LIBVERSION == KUZU_LIBVERSION
+
+
 when isMainModule:
     echo "Nim-Kuzu version: ", KUZU_VERSION,
         ". Expected library version: ", KUZU_EXPECTED_LIBVERSION, "."
     echo "Installed Kuzu library version ", KUZU_LIBVERSION,
         " (storage version ", KUZU_STORAGE_VERSION, ")"
-    if KUZU_EXPECTED_LIBVERSION == KUZU_LIBVERSION:
+    if kuzuVersionCompatible():
         echo "Versions match!"
     else:
         echo "This library wraps a different version of Kuzu than what is installed."
