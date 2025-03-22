@@ -2,14 +2,16 @@
 
 proc `=destroy`*( conn: KuzuConnectionObj ) =
     ## Graceful cleanup for open connection handles.
-    kuzu_connection_destroy( addr conn.handle )
+    if conn.valid:
+        kuzu_connection_destroy( addr conn.handle )
 
 
-proc connect*( db: KuzuDB ): KuzuConnection =
+proc connect*( db: KuzuDatabase ): KuzuConnection =
     ## Connect to a database.
     result = new KuzuConnection
-    var rv = kuzu_connection_init( addr db.handle, addr result.handle )
-    if rv != KuzuSuccess:
+    if kuzu_connection_init( addr db.handle, addr result.handle ) == KuzuSuccess:
+        result.valid = true
+    else:
         raise newException( KuzuException, "Unable to connect to the database." )
 
 

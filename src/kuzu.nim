@@ -13,14 +13,18 @@ else:
     include "kuzu/0.8.2.nim"
 
 import
-    std/strformat
+    std/strformat,
+    std/strutils
 
+# Order very much matters here pre Nim 3.0 multi-pass compiling.
 include
     "kuzu/constants.nim",
     "kuzu/types.nim",
     "kuzu/config.nim",
     "kuzu/database.nim",
     "kuzu/connection.nim",
+    "kuzu/value.nim",
+    "kuzu/tuple.nim",
     "kuzu/queries.nim"
 
 
