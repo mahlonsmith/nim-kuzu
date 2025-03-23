@@ -12,6 +12,6 @@ q = conn.query( "MATCH (d:Doop) RETURN d.thing" )
 
 try:
    discard q.getNext
-except KuzuQueryException as err:
-    assert err.msg.contains( re"""Unable to fetch next tuple.""" )
+except KuzuIndexException as err:
+    assert err.msg.contains( re"""Query iteration past end.""" )
 

@@ -17,6 +17,14 @@ proc `[]`*( tpl: KuzuFlatTuple, idx: int ): KuzuValue =
     result = new KuzuValue
     if kuzu_flat_tuple_get_value( addr tpl.handle, idx.uint64, addr result.handle ) == KuzuSuccess:
         result.valid = true
+
+        #
+        # FIXME: type checks and conversions from supported kuzu
+        # types to supported Nim types.
+        #
+        # Currently the value can only be stringified via `$`.
+        #
+
     else:
         raise newException( KuzuIndexException,
             &"Unable to fetch tuple value at idx {idx}. ({tpl.num_columns} column(s).)" )

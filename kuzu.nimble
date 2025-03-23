@@ -16,9 +16,13 @@ task makewrapper, "Generate the C wrapper using Futhark":
     exec "nim c -d:futharkWrap --outdir=. src/kuzu.nim"
 
 task test, "Run the test suite.":
-    exec "testament all"
+    exec "testament --megatest:off all"
     exec "testament html"
 
-task clean, "Remove all non-critical artifacts.":
-    exec "fossil clean --disable-undo --dotfiles --emptydirs -f -v"
+task clean, "Remove all non-repository artifacts.":
+    exec "fossil clean -x"
+
+task docs, "Generate automated documentation.":
+    exec "nim doc --project --outdir:docs src/kuzu.nim"
+    exec "nim md2html --project --outdir:docs README.md"
 
