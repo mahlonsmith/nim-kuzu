@@ -18,6 +18,8 @@ for thing in @[ "Camel", "Lampshade", "Delicious Cake" ]:
    q = p.execute( (thing: thing) )
    assert typeOf( q ) is KuzuQueryResult
 
+# This is failing until I can address
+# https://github.com/kuzudb/kuzu/issues/5102
 q = conn.query( "MATCH (d:Doop) RETURN d.thing" )
 echo $q
 
