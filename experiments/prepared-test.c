@@ -37,7 +37,7 @@ int main()
 		"CREATE NODE TABLE Test ( id SERIAL, thing STRING, PRIMARY KEY(id) )",
 		&q ) != KuzuSuccess ) {
 		printf( "Couldn't create schema?!\n" );
-		return( 1 );
+		return 1;
 	}
 
 
@@ -46,9 +46,9 @@ int main()
 		&conn,
 		"CREATE (t:Test {thing: $thing})",
 		&stmt
-	) != KuzuSuccess ) {
+		) != KuzuSuccess ) {
 		printf( "Couldn't prepare statement?\n" );
-		return( 1 );
+		return 1;
 	}
 
 
@@ -78,5 +78,4 @@ int main()
 
 	return 0;
 }
-
 

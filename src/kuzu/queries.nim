@@ -4,19 +4,55 @@ proc `=destroy`*( query: KuzuQueryResultObj ) =
     ## Graceful cleanup for out of scope query objects.
     if query.valid:
         kuzu_query_result_destroy( addr query.handle )
-        kuzu_query_summary_destroy( addr query.summary )
+
+
+proc getQueryMetadata( query: KuzuQueryResult ) =
+    ## Find and retain additional data for the query.
+    query.num_columns = kuzu_query_result_get_num_columns( addr query.handle )
+    query.num_tuples  = kuzu_query_result_get_num_tuples( addr query.handle )
+
+    # Summary information.
+    var summary: kuzu_query_summary
+    discard kuzu_query_result_get_query_summary( addr query.handle, addr summary )
+    query.compile_time   = kuzu_query_summary_get_compiling_time( addr summary )
+    query.execution_time = kuzu_query_summary_get_execution_time( addr summary )
+    kuzu_query_summary_destroy( addr summary )
+
+    # Column information.
+    query.column_types = @[]
+    query.column_names = @[]
+    for idx in ( 0 .. query.num_columns-1 ):
+
+        # types
+        #
+        var logical_type: kuzu_logical_type
+        discard kuzu_query_result_get_column_data_type(
+            addr query.handle,
+            idx,
+            addr logical_type
+        )
+        query.column_types.add( kuzu_data_type_get_id( addr logical_type ))
+        kuzu_data_type_destroy( addr logical_type )
+
+        # names
+        #
+        var name: cstring
+        discard kuzu_query_result_get_column_name(
+            addr query.handle,
+            idx,
+            addr name
+        )
+        query.column_names.add( $name )
+        kuzu_destroy_string( name )
 
 
 proc query*( conn: KuzuConnection, query: string ): KuzuQueryResult =
     ## Perform a database +query+ and return the result.
     result = new KuzuQueryResult
+
     if kuzu_connection_query( addr conn.handle, query, addr result.handle ) == KuzuSuccess:
-        discard kuzu_query_result_get_query_summary( addr result.handle, addr result.summary )
-        result.num_columns    = kuzu_query_result_get_num_columns( addr result.handle )
-        result.num_tuples     = kuzu_query_result_get_num_tuples( addr result.handle )
-        result.compile_time   = kuzu_query_summary_get_compiling_time( addr result.summary )
-        result.execution_time = kuzu_query_summary_get_execution_time( addr result.summary )
-        result.valid          = true
+        result.valid = true
+        result.getQueryMetadata()
     else:
         var err = kuzu_query_result_get_error_message( addr result.handle )
         raise newException( KuzuQueryException, &"Error running query: {err}" )

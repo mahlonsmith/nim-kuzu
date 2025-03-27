@@ -3,5 +3,5 @@
 import re
 import kuzu
 
-assert KUZU_LIBVERSION.contains( re"^\d+\.\d+\.\d+$" )
+assert KUZU_LIBVERSION.contains( re"^\d+\.\d+\.\d+(?:\.\d+)?$" )
 
