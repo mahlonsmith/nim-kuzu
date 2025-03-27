@@ -15,11 +15,12 @@ type
 
     KuzuQueryResultObj = object
         handle:          kuzu_query_result
-        summary:         kuzu_query_summary
         num_columns*:    uint64 = 0
         num_tuples*:     uint64 = 0
         compile_time*:   cdouble = 0
         execution_time*: cdouble = 0
+        column_types*:   seq[ kuzu_data_type_id ]
+        column_names*:   seq[ string ]
         valid = false
     KuzuQueryResult* = ref KuzuQueryResultObj
 

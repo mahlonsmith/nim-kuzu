@@ -17,7 +17,7 @@ q = conn.query( "MATCH (d:Doop) RETURN d.thing" )
 assert q.num_tuples == 1
 assert q.hasNext == true
 
-discard $q  # consume the tuple result
+discard q.getNext # consume the tuple result
 
 assert q.num_tuples == 1
 assert q.hasNext == false
