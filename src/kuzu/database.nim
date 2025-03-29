@@ -3,10 +3,11 @@
 proc `=destroy`*( db: KuzuDatabaseObj ) =
     ## Graceful cleanup for an open DB handle when it goes out of scope.
     if db.valid:
+        when defined( debug ): echo &"Destroying database: {db}"
         kuzu_database_destroy( addr db.handle )
 
 
-proc newKuzuDatabase*( path="", config=kuzuConfig() ): KuzuDatabase =
+func newKuzuDatabase*( path="", config=kuzuConfig() ): KuzuDatabase =
     ## Create a new Kuzu database handle.  Creates an in-memory
     ## database by default, but writes to disk if a +path+ is supplied.
 

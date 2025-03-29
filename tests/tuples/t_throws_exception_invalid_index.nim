@@ -15,6 +15,6 @@ let tup = q.getNext
 
 try:
     echo tup[22]
-except KuzuIndexException as err:
+except KuzuIndexError as err:
     assert err.msg.contains( re"""Unable to fetch tuple value at idx 22.""" )
 

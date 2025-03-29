@@ -39,9 +39,11 @@ type
     KuzuValueObj = object
         handle: kuzu_value
         valid = false
+        kind*: kuzu_data_type_id
     KuzuValue* = ref KuzuValueObj
 
-    KuzuException*      = object of CatchableError
-    KuzuQueryException* = object of KuzuException
-    KuzuIndexException* = object of KuzuException
+    KuzuException*  = object of CatchableError
+    KuzuQueryError* = object of KuzuException
+    KuzuIndexError* = object of KuzuException
+    KuzuTypeError*  = object of KuzuException
 
