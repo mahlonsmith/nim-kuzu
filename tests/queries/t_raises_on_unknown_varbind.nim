@@ -14,7 +14,7 @@ assert typeOf( p ) is KuzuPreparedStatement
 
 try:
     discard p.execute( (nope: "undefined var in statement!") )
-except KuzuQueryException as err:
+except KuzuQueryError as err:
     assert err.msg.contains( re"""Parameter nope not found.""" )
 
 

@@ -9,6 +9,6 @@ let conn = db.connect
 
 try:
     discard conn.query( "NOPE NOPE NOPE" )
-except KuzuQueryException as err:
-    assert err.msg.contains( re"""Error running query:.*extraneous input 'NOPE'""" )
+except KuzuQueryError as err:
+    assert err.msg.contains( re"""Parser exception: extraneous input 'NOPE'""" )
 

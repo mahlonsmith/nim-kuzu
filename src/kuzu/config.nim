@@ -1,6 +1,6 @@
 # vim: set et sta sw=4 ts=4 :
 
-proc kuzuConfig*(
+func kuzuConfig*(
     buffer_pool_size     = KUZU_DEFAULT_CONFIG.buffer_pool_size,
     max_num_threads      = KUZU_DEFAULT_CONFIG.max_num_threads,
     enable_compression   = KUZU_DEFAULT_CONFIG.enable_compression,

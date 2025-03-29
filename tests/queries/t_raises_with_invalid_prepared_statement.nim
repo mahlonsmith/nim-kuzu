@@ -14,7 +14,7 @@ assert typeOf( p ) is KuzuPreparedStatement
 
 try:
     discard p.execute
-except KuzuQueryException as err:
-    assert err.msg.contains( re""".*Error executing prepared statement:.*CREAET""" )
+except KuzuQueryError as err:
+    assert err.msg.contains( re"""Parser exception: extraneous input 'CREAET'""" )
 
 

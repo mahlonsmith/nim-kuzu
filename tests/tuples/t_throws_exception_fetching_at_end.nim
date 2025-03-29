@@ -12,6 +12,6 @@ q = conn.query( "MATCH (d:Doop) RETURN d.thing" )
 
 try:
    discard q.getNext
-except KuzuIndexException as err:
+except KuzuIndexError as err:
     assert err.msg.contains( re"""Query iteration past end.""" )
 
