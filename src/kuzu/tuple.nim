@@ -1,5 +1,7 @@
 # vim: set et sta sw=4 ts=4 :
 
+# NOTE: Constructor in queries.nim, #getNext
+
 proc `=destroy`*( tpl: KuzuFlatTupleObj ) =
     ## Graceful cleanup for out of scope tuples.
     if tpl.valid:
@@ -24,4 +26,5 @@ func `[]`*( tpl: KuzuFlatTuple, idx: int ): KuzuValue =
     else:
         raise newException( KuzuIndexError,
             &"Unable to fetch tuple value at idx {idx}. ({tpl.num_columns} column(s).)" )
+
 

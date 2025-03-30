@@ -42,6 +42,12 @@ type
         kind*: kuzu_data_type_id
     KuzuValue* = ref KuzuValueObj
 
+    KuzuStructValueObj = object
+        value: KuzuValue
+        len*: uint64
+        keys*: seq[ string ]
+    KuzuStructValue* = ref KuzuStructValueObj
+
     KuzuException*  = object of CatchableError
     KuzuQueryError* = object of KuzuException
     KuzuIndexError* = object of KuzuException
