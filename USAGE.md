@@ -34,14 +34,14 @@ versions might work. Don't count too heavily on it.  :-)
 | v0.8.2               | v0.1.0           |
 
 You can use the `kuzuVersionCompatible()` function (along with the
-`KUZU_VERSION` and `KUZU_LIBVERSION` constants) to quickly check if things are
-looking right.
+`kuzuGetVersion()` and the `KUZU_VERSION` constant) to quickly check if things
+are looking right.
 
 ```nim
 import kuzu
 
 echo KUZU_VERSION            #=> "0.1.0"
-echo KUZU_LIBVERSION         #=> "0.8.2"
+echo kuzuGetVersion()        #=> "0.8.2"
 echo kuzuVersionCompatible() #=> true
 ```
 

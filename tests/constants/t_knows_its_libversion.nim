@@ -3,5 +3,6 @@
 import re
 import kuzu
 
-assert KUZU_LIBVERSION.contains( re"^\d+\.\d+\.\d+(?:\.\d+)?$" )
+let version = $kuzuGetVersion()
+assert version.contains( re"^\d+\.\d+\.\d+(?:\.\d+)?$" )
 
