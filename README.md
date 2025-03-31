@@ -39,18 +39,14 @@ For more information about Kuzu itself, see its
 
     $ nimble install kuzu
 
+The current version of this library is built for Kuzu v0.8.2.
+
 
 ## Usage
 
+See the [Usage documentation](USAGE.md).
 
-> [!TODO]- Human readable usage docs!
->
-> ... The nim generated source isn't great when pulling in
-> the C wrapper auto-gen stuff.
->
-> If you're here and reading this before I have proper docs written, see the
-> tests/ for some working examples.
-
+You can also find a bunch of working examples in the tests.
 
 
 ## Contributing
