@@ -134,23 +134,23 @@ echo $res #=>
 Additionally, various query metadata is available for introspection:
 
 ```nim
-var res = conn.query( """
+var res = conn.query """
 RETURN
   "Hello world" AS hi,
   1234 AS pin,
   [1,2,3] AS list
-""" )
+"""
 
-echo res.num_columns    #=> 3
-echo res.num_tuples     #=> 1
+assert res.num_columns == 3
+assert res.num_tuples  == 1
 echo res.compile_time   #=> 14.028
 echo res.execution_time #=> 1.624
 
 # Return the column names as a sequence.
-echo res.column_names #=> @["hi", "pin", "list"]
+assert res.column_names == @["hi", "pin", "list"]
 
 # Return the column data types as a sequence.
-echo res.column_types #=> @[KUZU_STRING, KUZU_INT64, KUZU_LIST]
+assert res.column_types == @[KUZU_STRING, KUZU_INT64, KUZU_LIST]
 ```
 
 ### Prepared Statements
@@ -161,12 +161,12 @@ on the connection. These statements are only compiled once, and execution is
 deferred until you call `execute()`.
 
 ```nim
-var stmt = conn.prepare( """
+var stmt = conn.prepare """
 RETURN
   "Hello world" AS hi,
   1234 AS pin,
   [1,2,3] AS list
-""" )
+"""
 
 # This returns a KuzuQueryResult, just like `conn.query()`.
 var res = stmt.execute()
@@ -177,12 +177,12 @@ Parameters are matched by providing a Nim tuple argument to `execute()` - a
 simple round trip example:
 
 ```nim
-var stmt = conn.prepare( """
+var stmt = conn.prepare """
 RETURN
   $message AS message,
   $digits AS digits,
   LIST_CREATION($list) AS list
-""" )
+"""
 
 var res = stmt.execute( (message: "Hello", digits: 1234, list: "1,2,3") )
 
@@ -200,7 +200,7 @@ converted to their respective Kuzu types.
 var stmt = conn.prepare( """RETURN $num AS num""" )
 var res  = stmt.execute( (num: 12) )
 
-echo res.column_types[0] #=> KUZU_INT32
+assert res.column_types[0] == KUZU_INT32
 ```
 
 This might not necessarily be what you want - sometimes you'd rather be strict
@@ -214,10 +214,10 @@ var stmt = conn.prepare( """RETURN $num AS num""" )
 var res: KuzuQueryResult
 
 res = stmt.execute( (num: 12'u64) )
-echo res.column_types[0] #=> KUZU_UINT32
+assert res.column_types[0] == KUZU_UINT64
 
 res = stmt.execute( (num: 12.float) )
-echo res.column_types[0] #=> KUZU_DOUBLE
+assert res.column_types[0] == KUZU_DOUBLE
 ```
 
 #### Kuzu Specific Types
@@ -390,7 +390,7 @@ check what type it is via the 'kind' property.
 var res = conn.query """RETURN "hello""""
 var value = res.getNext[0]
 
-echo value.kind #=> KUZU_STRING
+assert value.kind == KUZU_STRING
 ```
 
 A `KuzuValue` has conversion methods for Nim base types.  You'll likely want to
@@ -402,8 +402,8 @@ var value = res.getNext[0]
 
 echo value + 1 #=> Type error!
 
-echo $value #=> "2560"
-echo value.toInt64 + 1 #=> 2561
+assert $value == "2560"
+assert value.toInt64 + 1 == 2561
 ```
 
 
@@ -432,7 +432,7 @@ echo list.map( func(v:KuzuValue): int = v.toInt64 * 10 ) #=> @[100,200,300]
 ### Struct-like Objects
 
 Various Kuzu types can act like a struct - this includes `KUZU_NODE`,
-`KUZU_REL`, and of course explicit `KUZU_STRUCT` itself, among others.
+`KUZU_REL`, and of course an explicit `KUZU_STRUCT` itself, among others.
 
 Convert a `KuzuValue` to a `KuzuStructValue` with `toStruct()`.  For
 convenience, this is also aliased to `toNode()` and `toRel()`.
@@ -451,7 +451,7 @@ echo struct["movie"], " was released in ", struct["year"], "." #=>
 # "The Fifth Element was released in 1997."
 ```
 
-Here's a much more complicated example, following a node paths:
+Here's a more elaborate example, following a node path:
 
 ```nim
 import
@@ -463,24 +463,24 @@ var db   = newKuzuDatabase()
 var conn = db.connect
 
 var res = conn.query """
-    CREATE NODE TABLE Person (
-      id SERIAL,
-      name STRING, PRIMARY KEY (id)
-    );
-    CREATE REL TABLE Knows (
-      FROM Person TO Person,
-      since INT
-    );
+  CREATE NODE TABLE Person (
+    id SERIAL,
+    name STRING, PRIMARY KEY (id)
+  );
+  CREATE REL TABLE Knows (
+    FROM Person TO Person,
+    since INT
+  );
 
-    CREATE (p:Person {name: "Bob"});
-    CREATE (p:Person {name: "Alice"});
-    CREATE (p:Person {name: "Bruce"});
-    CREATE (p:Person {name: "Tom"});
+  CREATE (p:Person {name: "Bob"});
+  CREATE (p:Person {name: "Alice"});
+  CREATE (p:Person {name: "Bruce"});
+  CREATE (p:Person {name: "Tom"});
 
-    CREATE (a:Person {name: "Bruce"})-[r:Knows {since: 1997}]->(b:Person {name: "Tom"});
-    CREATE (a:Person {name: "Bob"})-[r:Knows {since: 2009}]->(b:Person {name: "Alice"});
-    CREATE (a:Person {name: "Alice"})-[r:Knows {since: 2010}]->(b:Person {name: "Bob"});
-    CREATE (a:Person {name: "Bob"})-[r:Knows {since: 2003}]->(b:Person {name: "Bruce"});
+  CREATE (a:Person {name: "Bruce"})-[r:Knows {since: 1997}]->(b:Person {name: "Tom"});
+  CREATE (a:Person {name: "Bob"})-[r:Knows {since: 2009}]->(b:Person {name: "Alice"});
+  CREATE (a:Person {name: "Alice"})-[r:Knows {since: 2010}]->(b:Person {name: "Bob"});
+  CREATE (a:Person {name: "Bob"})-[r:Knows {since: 2003}]->(b:Person {name: "Bruce"});
 """
 
 res = conn.query """
