@@ -2,5 +2,5 @@
 
 import kuzu
 
-assert KUZU_STORAGE_VERSION >= 36
+assert kuzuGetStorageVersion() >= 36
 

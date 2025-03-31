@@ -31,14 +31,14 @@ include
 proc kuzuVersionCompatible*(): bool =
     ## Returns true if the system installed Kuzu library
     ## is the expected version of this library wrapper.
-    result = KUZU_EXPECTED_LIBVERSION == KUZU_LIBVERSION
+    result = KUZU_EXPECTED_LIBVERSION == $kuzuGetVersion()
 
 
 when isMainModule:
     echo "Nim-Kuzu version: ", KUZU_VERSION,
         ". Expected library version: ", KUZU_EXPECTED_LIBVERSION, "."
-    echo "Installed Kuzu library version ", KUZU_LIBVERSION,
-        " (storage version ", KUZU_STORAGE_VERSION, ")"
+    echo "Installed Kuzu library version ", kuzuGetVersion(),
+        " (storage version ", kuzuGetStorageVersion(), ")"
     if kuzuVersionCompatible():
         echo "Versions match!"
     else:
