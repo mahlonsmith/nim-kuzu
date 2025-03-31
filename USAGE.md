@@ -6,8 +6,8 @@ this repository, you can:
 
 > % nimble docs
 
-To auto-generate API docs -- with the C wrappers, it's a lot and it's hard to
-know where to start.
+... to auto-generate API docs -- unfortunately, with all the C wrappers, there's
+a lot and it's hard to know where to start.
 
 
 ## Prior Reading
