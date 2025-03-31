@@ -79,7 +79,7 @@ echo $db.config
 
 # Is compression enabled?
 if db.config.enable_compression:
-	echo "Yes!"
+  echo "Yes!"
 ```
 
 You can alter configuration options when connecting by passing a `kuzuConfig`
@@ -314,9 +314,9 @@ each `KuzuFlatTuple` -- essentially, each row that was returned in the set.
 
 ```nim
 var res = conn.query """
-	UNWIND [1,2,3] AS items
-	UNWIND ["thing"] AS thing
-	RETURN items, thing
+  UNWIND [1,2,3] AS items
+  UNWIND ["thing"] AS thing
+  RETURN items, thing
 """
 
 # KuzuFlatTuple can be stringified just like the result set.
@@ -335,8 +335,8 @@ before calling.
 
 ```nim
 var res = conn.query """
-	UNWIND [1,2,3] AS items
-	RETURN items
+  UNWIND [1,2,3] AS items
+  RETURN items
 """
 
 # Get the first row.
@@ -484,10 +484,10 @@ var res = conn.query """
 """
 
 res = conn.query """
-	MATCH path = (a:Person)-[r:Knows]->(b:Person)
-	WHERE r.since > 2000
-	RETURN r.since as Since, nodes(path) as People
-	ORDER BY r.since
+  MATCH path = (a:Person)-[r:Knows]->(b:Person)
+  WHERE r.since > 2000
+  RETURN r.since as Since, nodes(path) as People
+  ORDER BY r.since
 """
 
 # Who knows who since when?
