@@ -15,7 +15,7 @@ func `$`*( tpl: KuzuFlatTuple ): string =
     result.removeSuffix( "\n" )
 
 
-func `[]`*( tpl: KuzuFlatTuple, idx: int ): KuzuValue =
+func `[]`*( tpl: KuzuFlatTuple, idx: int|uint64 ): KuzuValue =
     ## Returns a KuzuValue at the given *idx*.
 
     result = new KuzuValue

@@ -166,4 +166,5 @@ iterator items*( query: KuzuQueryResult ): KuzuFlatTuple =
     ## Iterate available tuples, yielding to the block.
     while query.hasNext:
         yield query.getNext
+    query.rewind
 

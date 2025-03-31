@@ -23,6 +23,8 @@ task clean, "Remove all non-repository artifacts.":
     exec "fossil clean -x"
 
 task docs, "Generate automated documentation.":
-    exec "nim doc --project --outdir:docs src/kuzu.nim"
     exec "nim md2html --project --outdir:docs README.md"
+    exec "nim md2html --project --outdir:docs History.md"
+    exec "nim md2html --project --outdir:docs USAGE.md"
+    exec "nim doc --project --outdir:docs src/kuzu.nim"
 

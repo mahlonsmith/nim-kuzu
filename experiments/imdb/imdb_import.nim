@@ -7,7 +7,7 @@
 # directors, and TV shows are intentionally omitted.
 #
 # Compile:
-#   % nim c -d:release imdbdata.nim
+#   % nim c -d:release imdb_import.nim
 #
 # Sourced from: https://datasets.imdbws.com/
 # See: https://developer.imdb.com/non-commercial-datasets/
@@ -124,8 +124,8 @@ if not DB.dirExists:
         """CREATE NODE TABLE Movie (movieId INT64, title STRING, year UINT16, durationMins INT, PRIMARY KEY (movieId))""",
         """CREATE REL TABLE ActedIn (FROM Actor TO Movie)"""
     ]:
-        var result = conn.query( schema )
-        duration += result.execution_time.int
+        var q = conn.query( schema )
+        duration += q.execution_time.int
 
     echo &"Created database schema in {duration}ms."
     duration = 0
@@ -136,8 +136,8 @@ if not DB.dirExists:
         """COPY ActedIn FROM "./title.principals.csv" (header=true, ignore_errors=true)"""
     ]:
         echo dataload
-        var result = conn.query( dataload )
-        duration += result.execution_time.int
+        var q = conn.query( dataload )
+        duration += q.execution_time.int
 
     echo &"Imported data in {duration / 1000}s."
     echo "Done!"
