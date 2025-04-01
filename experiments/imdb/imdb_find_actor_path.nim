@@ -38,7 +38,7 @@ var res:  KuzuQueryResult
 var fromActor = paramStr(1)
 var toActor   = paramStr(2)
 
-var db = newKuzuDatabase( "imdb" )
+var db = newKuzuDatabase( "imdb", kuzuConfig(read_only=true) )
 var conn = db.connect
 
 echo "Database opened: ", db.path

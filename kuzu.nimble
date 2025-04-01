@@ -3,7 +3,7 @@
 version     = "0.1.0"
 author      = "Mahlon E. Smith"
 description = "Kuzu is an embedded graph database built for query speed and scalability."
-license     = "MIT"
+license     = "BSD-3-Clause"
 srcDir      = "src"
 
 requires "nim ^= 2.0.0"
