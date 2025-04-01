@@ -495,7 +495,8 @@ res = conn.query """
 for row in res:
   var since  = row[0]
   var people = row[1].toList.map( proc(p:KuzuValue):KuzuStructValue = p.toNode )
-  echo &"""{people[0]["name"]} has known {people[1]["name"]} since {since}."""
-
+  echo &"""{people[0]["name"]} has known {people[1]["name"]} since {since}.""" #=>
+  # Bob has known Bruce since 2003.
+  # Bob has known Alice since 2009.
+  # Alice has known Bob since 2010.
 ```
-
