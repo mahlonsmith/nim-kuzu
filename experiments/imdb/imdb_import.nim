@@ -13,7 +13,6 @@
 # See: https://developer.imdb.com/non-commercial-datasets/
 
 import
-    std/dirs,
     std/os,
     std/sequtils,
     std/strformat,

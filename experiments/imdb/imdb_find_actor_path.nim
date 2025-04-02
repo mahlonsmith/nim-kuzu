@@ -16,7 +16,6 @@ import
     std/math,
     std/os,
     std/sequtils,
-    std/strutils,
     std/strformat
 import kuzu
 
@@ -56,9 +55,7 @@ if res.getNext[0].toInt64 < 1:
     quit 1
 
 stmt = conn.prepare """
-    MATCH (a:Actor {name:$fromActor})
-    MATCH (b:Actor {name:$toActor})
-    MATCH path = (a)-[r:ActedIn* ALL SHORTEST]-(b)
+    MATCH path = (a:Actor {name:$fromActor})-[r:ActedIn* ALL SHORTEST]-(b:Actor {name:$toActor})
     RETURN DISTINCT nodes(path) AS nodes, length(path) AS hops
     ORDER BY hops
 """
