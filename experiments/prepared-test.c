@@ -6,6 +6,8 @@ weird prepared statement binding behavior?
 
 I don't know.  Maybe it's just me.
 
+NOTE: This was verified and fixed in Kuzu 0.9.0!
+
 https://docs.kuzudb.com/get-started/prepared-statements/
 
     % clang -lkuzu -o prepared-test prepared-test.c

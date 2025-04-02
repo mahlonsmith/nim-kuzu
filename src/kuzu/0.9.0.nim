@@ -131,7 +131,7 @@ type
   kuzu_data_type_id_570425859 = enum_kuzu_data_type_id_570425858 ## Generated based on /usr/include/kuzu.h:319:3
   kuzu_state_570425863 = enum_kuzu_state_570425862 ## Generated based on /usr/include/kuzu.h:324:49
   struct_tm_570425865 {.pure, inheritable, bycopy.} = object
-    tm_sec*: cint            ## Generated based on /usr/include/bits/types/struct_tm.h:7:8
+    tm_sec*: cint            ## Generated based on /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:7:8
     tm_min*: cint
     tm_hour*: cint
     tm_mday*: cint

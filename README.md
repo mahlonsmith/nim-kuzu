@@ -39,7 +39,7 @@ For more information about Kuzu itself, see its
 
     $ nimble install kuzu
 
-The current version of this library is built for Kuzu v0.8.2.
+The current version of this library is built for Kuzu v0.9.0.
 
 
 ## Usage
