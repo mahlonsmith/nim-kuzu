@@ -24,6 +24,9 @@ const DB     = "imdb"
 const SOURCE = "https://datasets.imdbws.com"
 const FILES  = @[ "name.basics", "title.basics", "title.principals" ]
 
+var knownFor: seq[ tuple[ aid: string, mids: seq[string] ] ] = @[]
+
+
 #
 # Prep everything!
 #
@@ -62,8 +65,14 @@ for file in FILES:
 
                 # nconst primaryName birthYear deathYear primaryProfession knownForTitles
                 of "name.basics":
+                    var id = $row[0].replace( "nm" ).parseInt()
+                    var known = row[5].split( ',' )
+                    known.applyIt(
+                        $it.replace( "tt" ).parseInt()
+                    )
+                    knownFor.add( (aid: id, mids: known ) )
+                    row[0] = id
                     row = row[0..3]
-                    row[0] = $row[0].replace( "nm" ).parseInt()
 
                 # tconst titleType primaryTitle originalTitle isAdult startYear endYear runtimeMinutes genres
                 of "title.basics":
@@ -108,6 +117,13 @@ for file in FILES:
     csv_file.close()
     stderr.write( "\n" )
 
+let known_file = open( "known.principals.csv", fmWrite )
+known_file.write( "aid,mid\n" )
+for known in knownFor:
+    for mid in known.mids:
+        known_file.write &"{known.aid},{mid}\n"
+known_file.close()
+
 
 #
 # Ok, now import into a fresh kuzu database.
@@ -132,7 +148,8 @@ if not DB.dirExists:
     for dataload in @[
         """COPY Actor FROM "./name.basics.csv" (header=true)""",
         """COPY Movie FROM "./title.basics.csv" (header=true)""",
-        """COPY ActedIn FROM "./title.principals.csv" (header=true, ignore_errors=true)"""
+        """COPY ActedIn FROM "./title.principals.csv" (header=true, ignore_errors=true)""",
+        """COPY ActedIn FROM "./known.principals.csv" (header=true, ignore_errors=true)"""
     ]:
         echo dataload
         var q = conn.query( dataload )
