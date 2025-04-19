@@ -131,6 +131,23 @@ func toList*( value: KuzuValue ): seq[ KuzuValue ] =
 const toSeq* = toList
 
 
+proc toBlob*( value: KuzuValue ): seq[ byte ] =
+    ## Conversion from Kuzu type to Nim - returns a BLOB as a sequence of bytes.
+    if value.kind != KUZU_BLOB:
+        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != blob" )
+
+    result = @[]
+    var data: ptr byte
+    assert( kuzu_value_get_blob( addr value.handle, addr data ) == KuzuSuccess )
+
+    for idx in 0 .. BLOB_MAXSIZE:
+        var byte = cast[ptr byte](cast[uint](data) + idx.uint)[]
+        if byte == 0: break
+        result.add( byte )
+
+    kuzu_destroy_blob( data )
+
+
 func toStruct*( value: KuzuValue ): KuzuStructValue =
     ## Create a convenience class for struct-like KuzuValues.
     if not [
@@ -184,22 +201,5 @@ func `[]`*( struct: KuzuStructValue, key: string ): KuzuValue =
 func `$`*( struct: KuzuStructValue ): string =
     ## Stringify a struct value.
     result = $kuzu_value_to_string( addr struct.value.handle )
-
-
-proc toBlob*( value: KuzuValue ): seq[ byte ] =
-    ## Conversion from Kuzu type to Nim - returns a BLOB as a sequence of bytes.
-    if value.kind != KUZU_BLOB:
-        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != blob" )
-
-    result = @[]
-    var data: ptr byte
-    assert( kuzu_value_get_blob( addr value.handle, addr data ) == KuzuSuccess )
-
-    for idx in 0 .. BLOB_MAXSIZE:
-        var byte = cast[ptr byte](cast[uint](data) + idx.uint)[]
-        if byte == 0: break
-        result.add( byte )
-
-    kuzu_destroy_blob( data )
 
 

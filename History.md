@@ -1,6 +1,14 @@
 # Release History for nim-kuzu
 
 ---
+## v0.3.0 [2025-04-19] Mahlon E. Smith <mahlon@martini.nu>
+
+Enhancement:
+
+ - Add `toBlob` for quickly fetching a sequence of opaque bytes.
+
+
+---
 ## v0.2.0 [2025-04-01] Mahlon E. Smith <mahlon@martini.nu>
 
 Well that didn't take long!  Update for Kuzu 0.9.0.
