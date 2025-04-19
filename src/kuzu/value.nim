@@ -186,17 +186,20 @@ func `$`*( struct: KuzuStructValue ): string =
     result = $kuzu_value_to_string( addr struct.value.handle )
 
 
-# func toBlob*( value: KuzuValue ): array[ 4096, byte ] =
-#     ## Conversion from Kuzu type to Nim.
-#     if value.kind != KUZU_BLOB:
-#         raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != blob" )
-#     var rv: array[ 4096, byte ]
-#     assert( kuzu_value_get_blob( addr value.handle, addr rv[0] ) == KuzuSuccess )
-#     return rv
+proc toBlob*( value: KuzuValue ): seq[ byte ] =
+    ## Conversion from Kuzu type to Nim - returns a BLOB as a sequence of bytes.
+    if value.kind != KUZU_BLOB:
+        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != blob" )
 
+    result = @[]
+    var data: ptr byte
+    assert( kuzu_value_get_blob( addr value.handle, addr data ) == KuzuSuccess )
 
-#[
-   BLOB
-   MAP
-]#
+    for idx in 0 .. BLOB_MAXSIZE:
+        var byte = cast[ptr byte](cast[uint](data) + idx.uint)[]
+        if byte == 0: break
+        result.add( byte )
+
+    kuzu_destroy_blob( data )
+
 
