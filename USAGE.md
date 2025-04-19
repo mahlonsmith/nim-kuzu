@@ -501,3 +501,22 @@ for row in res:
   # Bob has known Alice since 2009.
   # Alice has known Bob since 2010.
 ```
+
+
+### Blobs
+
+Kuzu can store small chunks of opaque binary data.  For these BLOB columns,
+using `toBlob` will return the raw sequence of bytes.
+
+```nim
+var q = conn.query """
+CREATE NODE TABLE Doot ( id SERIAL, data BLOB, PRIMARY KEY(id) )
+"""
+
+var stmt = conn.prepare( "CREATE (d:Doot {data: encode($str)})" )
+q = stmt.execute( (str: "Hello!") )
+q = conn.query( "MATCH (d:Doot) RETURN d.data" )
+
+var blob = q.getNext[0].toBlob #=> @[72, 101, 108, 108, 111, 33]
+```
+
