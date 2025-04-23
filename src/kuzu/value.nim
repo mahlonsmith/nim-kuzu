@@ -131,7 +131,7 @@ func toList*( value: KuzuValue ): seq[ KuzuValue ] =
 const toSeq* = toList
 
 
-proc toBlob*( value: KuzuValue ): seq[ byte ] =
+func toBlob*( value: KuzuValue ): seq[ byte ] =
     ## Conversion from Kuzu type to Nim - returns a BLOB as a sequence of bytes.
     if value.kind != KUZU_BLOB:
         raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != blob" )
