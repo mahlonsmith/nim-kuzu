@@ -17,6 +17,13 @@ func getType( value: KuzuValue ) =
     kuzu_data_type_destroy( addr logical_type )
 
 
+template checkType( kind: kuzu_data_type_id, valid_types: set ) =
+    ## Raises a KuzuTypeError if the type conversion is incompatible.
+    if kind notin valid_types:
+        let msg = "Mismatched types: " & $kind & " != " & $valid_types
+        raise newException( KuzuTypeError, msg )
+
+
 func `$`*( value: KuzuValue ): string =
     ## Stringify a value.
     result = $kuzu_value_to_string( addr value.handle )
@@ -24,78 +31,67 @@ func `$`*( value: KuzuValue ): string =
 
 func toBool*( value: KuzuValue ): bool =
     ## Conversion from Kuzu type to Nim.
-    if value.kind != KUZU_BOOL:
-        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != bool" )
+    checkType( value.kind, {KUZU_BOOL} )
     assert( kuzu_value_get_bool( addr value.handle, addr result ) == KuzuSuccess )
 
 
 func toInt8*( value: KuzuValue ): int8 =
     ## Conversion from Kuzu type to Nim.
-    if value.kind != KUZU_INT8:
-        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != int8" )
+    checkType( value.kind, {KUZU_INT8} )
     assert( kuzu_value_get_int8( addr value.handle, addr result ) == KuzuSuccess )
 
 
 func toInt16*( value: KuzuValue ): int16 =
     ## Conversion from Kuzu type to Nim.
-    if value.kind != KUZU_INT16:
-        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != int16" )
+    checkType( value.kind, {KUZU_INT16} )
     assert( kuzu_value_get_int16( addr value.handle, addr result ) == KuzuSuccess )
 
 
 func toInt32*( value: KuzuValue ): int32 =
     ## Conversion from Kuzu type to Nim.
-    if value.kind != KUZU_INT32:
-        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != int32" )
+    checkType( value.kind, {KUZU_INT32} )
     assert( kuzu_value_get_int32( addr value.handle, addr result ) == KuzuSuccess )
 
 
 func toInt64*( value: KuzuValue ): int64 =
     ## Conversion from Kuzu type to Nim.
-    if value.kind != KUZU_INT64:
-        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != int64" )
+    checkType( value.kind, {KUZU_INT64} )
     assert( kuzu_value_get_int64( addr value.handle, addr result ) == KuzuSuccess )
 
 
 func toUint8*( value: KuzuValue ): uint8 =
     ## Conversion from Kuzu type to Nim.
-    if value.kind != KUZU_UINT8:
-        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != uint8" )
+    checkType( value.kind, {KUZU_UINT8} )
     assert( kuzu_value_get_uint8( addr value.handle, addr result ) == KuzuSuccess )
 
 
 func toUint16*( value: KuzuValue ): uint16 =
     ## Conversion from Kuzu type to Nim.
-    if value.kind != KUZU_UINT16:
-        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != uint16" )
+    checkType( value.kind, {KUZU_UINT16} )
     assert( kuzu_value_get_uint16( addr value.handle, addr result ) == KuzuSuccess )
 
 
 func toUint32*( value: KuzuValue ): uint32 =
     ## Conversion from Kuzu type to Nim.
-    if value.kind != KUZU_UINT32:
-        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != uint32" )
+    checkType( value.kind, {KUZU_UINT32} )
     assert( kuzu_value_get_uint32( addr value.handle, addr result ) == KuzuSuccess )
 
 
 func toUint64*( value: KuzuValue ): uint64 =
     ## Conversion from Kuzu type to Nim.
-    if value.kind != KUZU_UINT64:
-        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != uint64" )
+    checkType( value.kind, {KUZU_UINT64} )
     assert( kuzu_value_get_uint64( addr value.handle, addr result ) == KuzuSuccess )
 
 
 func toDouble*( value: KuzuValue ): float =
     ## Conversion from Kuzu type to Nim.
-    if value.kind != KUZU_DOUBLE:
-        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != double" )
+    checkType( value.kind, {KUZU_DOUBLE} )
     assert( kuzu_value_get_double( addr value.handle, addr result ) == KuzuSuccess )
 
 
 func toFloat*( value: KuzuValue ): float =
     ## Conversion from Kuzu type to Nim.
-    if value.kind != KUZU_FLOAT:
-        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != float" )
+    checkType( value.kind, {KUZU_FLOAT} )
     var rv: cfloat
     assert( kuzu_value_get_float( addr value.handle, addr rv ) == KuzuSuccess )
     result = rv
@@ -103,8 +99,7 @@ func toFloat*( value: KuzuValue ): float =
 
 func toTimestamp*( value: KuzuValue ): int =
     ## Conversion from Kuzu type to Nim.
-    if value.kind != KUZU_TIMESTAMP:
-        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != timestamp" )
+    checkType( value.kind, {KUZU_TIMESTAMP} )
     var rv: kuzu_timestamp_t
     assert( kuzu_value_get_timestamp( addr value.handle, addr rv ) == KuzuSuccess )
     result = rv.value
@@ -112,8 +107,7 @@ func toTimestamp*( value: KuzuValue ): int =
 
 func toList*( value: KuzuValue ): seq[ KuzuValue ] =
     ## Return a sequence from KUZU_LIST values.
-    if value.kind != KUZU_LIST:
-        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != list" )
+    checkType( value.kind, {KUZU_LIST} )
     result = @[]
     var size: uint64
     assert( kuzu_value_get_list_size( addr value.handle, addr size ) == KuzuSuccess )
@@ -133,8 +127,7 @@ const toSeq* = toList
 
 func toBlob*( value: KuzuValue ): seq[ byte ] =
     ## Conversion from Kuzu type to Nim - returns a BLOB as a sequence of bytes.
-    if value.kind != KUZU_BLOB:
-        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != blob" )
+    checkType( value.kind, {KUZU_BLOB} )
 
     result = @[]
     var data: ptr byte
@@ -150,14 +143,13 @@ func toBlob*( value: KuzuValue ): seq[ byte ] =
 
 func toStruct*( value: KuzuValue ): KuzuStructValue =
     ## Create a convenience class for struct-like KuzuValues.
-    if not [
+    checkType( value.kind, {
         KUZU_STRUCT,
         KUZU_NODE,
         KUZU_REL,
         KUZU_RECURSIVE_REL,
         KUZU_UNION
-    ].contains( value.kind ):
-        raise newException( KuzuTypeError, &"Mismatched types: {value.kind} != struct" )
+    })
     result = new KuzuStructValue
     result.value = value
 

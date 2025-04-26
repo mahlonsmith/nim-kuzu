@@ -19,6 +19,15 @@ assert val.kind == KUZU_NODE
 try:
     discard val.toInt32
 except KuzuTypeError as err:
-    assert err.msg.contains( re"""Mismatched types: KUZU_NODE != int32""" )
+    assert err.msg.contains( re"""Mismatched types: KUZU_NODE != {KUZU_INT32}""" )
+
+
+q = conn.query( "RETURN 1" )
+val = q.getNext[0]
+
+try:
+    discard val.toStruct
+except KuzuTypeError as err:
+    assert err.msg.contains( re"""Mismatched types: KUZU_INT.* != {KUZU_NODE, KUZU_REL,.*}""" )
 
 
