@@ -26,8 +26,9 @@ you currently have installed.
 
 Check the [README](README.md), the [History](History.md), and the following
 table to ensure you're using the correct version for your Kuzu
-installation. I'll make a modest effort for backwards compatibility, and other
-versions might work. Don't count too heavily on it.  :-)
+installation. I'll make a modest effort for backwards compatibility while Kuzu
+is pre 1.0, and in practice, mismatched versions *might* work. Don't count too
+heavily on it.  :-)   Once there's a 1.0, this should be less chaotic.
 
 | Kuzu Library Version | Nim Kuzu Minimum Version |
 | -------------------- | ------------------------ |
