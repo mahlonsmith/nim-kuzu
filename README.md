@@ -2,7 +2,7 @@
 # Nim Kuzu
 
 home
-: https://code.martini.nu/fossil/nim-kuzu
+: https://code.martini.nu/mahlon/nim-kuzu
 
 github_mirror
 : https://github.com/mahlonsmith/nim-kuzu
@@ -51,9 +51,9 @@ You can also find a bunch of working examples in the tests.
 
 ## Contributing
 
-You can check out the current development source with Fossil via its [home
-repo](https://code.martini.nu/fossil/nim-kuzu), or with Git/Jujutsu at its
-[project mirror](https://github.com/mahlonsmith/nim-kuzu)
+You can check out the current development source via Git/Jujutsu at its
+[home repo](https://code.martini.nu/mahlon/nim-kuzu), or the
+[project mirror](https://github.com/mahlonsmith/nim-kuzu).
 
 After checking out the source, uncomment the development dependencies
 from the `kuzu.nimble` file, and run:
@@ -71,4 +71,3 @@ development.
 
 A note of thanks to @mantielero on Github, who has a Kuzu binding for an early
 KuzuDB (0.4.x) that I found after starting this project.
-
