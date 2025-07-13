@@ -1,6 +1,12 @@
 # Release History for nim-kuzu
 
 ---
+## v0.5.0 [2025-07-13] Mahlon E. Smith <mahlon@martini.nu>
+
+Bump for kuzu 0.11.0.  No practical changes.
+
+
+---
 ## v0.4.0 [2025-05-08] Mahlon E. Smith <mahlon@martini.nu>
 
 Bump for kuzu 0.10.0.  No practical changes.
