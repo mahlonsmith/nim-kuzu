@@ -68,70 +68,70 @@ type
     max_db_size*: uint64
     auto_checkpoint*: bool
     checkpoint_threshold*: uint64
-  kuzu_system_config_570425787 = struct_kuzu_system_config_570425786 ## Generated based on /usr/include/kuzu.h:135:3
+  kuzu_system_config_570425787 = struct_kuzu_system_config_570425786 ## Generated based on /usr/include/kuzu.h:141:3
   struct_kuzu_database_570425789 {.pure, inheritable, bycopy.} = object
-    internal_database*: pointer ## Generated based on /usr/include/kuzu.h:140:9
-  kuzu_database_570425791 = struct_kuzu_database_570425790 ## Generated based on /usr/include/kuzu.h:142:3
+    internal_database*: pointer ## Generated based on /usr/include/kuzu.h:146:9
+  kuzu_database_570425791 = struct_kuzu_database_570425790 ## Generated based on /usr/include/kuzu.h:148:3
   struct_kuzu_connection_570425793 {.pure, inheritable, bycopy.} = object
-    internal_connection*: pointer ## Generated based on /usr/include/kuzu.h:149:9
-  kuzu_connection_570425795 = struct_kuzu_connection_570425794 ## Generated based on /usr/include/kuzu.h:151:3
+    internal_connection*: pointer ## Generated based on /usr/include/kuzu.h:155:9
+  kuzu_connection_570425795 = struct_kuzu_connection_570425794 ## Generated based on /usr/include/kuzu.h:157:3
   struct_kuzu_prepared_statement_570425797 {.pure, inheritable, bycopy.} = object
-    internal_prepared_statement*: pointer ## Generated based on /usr/include/kuzu.h:157:9
+    internal_prepared_statement*: pointer ## Generated based on /usr/include/kuzu.h:163:9
     internal_bound_values*: pointer
-  kuzu_prepared_statement_570425799 = struct_kuzu_prepared_statement_570425798 ## Generated based on /usr/include/kuzu.h:160:3
+  kuzu_prepared_statement_570425799 = struct_kuzu_prepared_statement_570425798 ## Generated based on /usr/include/kuzu.h:166:3
   struct_kuzu_query_result_570425801 {.pure, inheritable, bycopy.} = object
-    internal_query_result*: pointer ## Generated based on /usr/include/kuzu.h:165:9
+    internal_query_result*: pointer ## Generated based on /usr/include/kuzu.h:171:9
     internal_is_owned_by_cpp*: bool
-  kuzu_query_result_570425803 = struct_kuzu_query_result_570425802 ## Generated based on /usr/include/kuzu.h:168:3
+  kuzu_query_result_570425803 = struct_kuzu_query_result_570425802 ## Generated based on /usr/include/kuzu.h:174:3
   struct_kuzu_flat_tuple_570425805 {.pure, inheritable, bycopy.} = object
-    internal_flat_tuple*: pointer ## Generated based on /usr/include/kuzu.h:173:9
+    internal_flat_tuple*: pointer ## Generated based on /usr/include/kuzu.h:179:9
     internal_is_owned_by_cpp*: bool
-  kuzu_flat_tuple_570425807 = struct_kuzu_flat_tuple_570425806 ## Generated based on /usr/include/kuzu.h:176:3
+  kuzu_flat_tuple_570425807 = struct_kuzu_flat_tuple_570425806 ## Generated based on /usr/include/kuzu.h:182:3
   struct_kuzu_logical_type_570425809 {.pure, inheritable, bycopy.} = object
-    internal_data_type*: pointer ## Generated based on /usr/include/kuzu.h:181:9
-  kuzu_logical_type_570425811 = struct_kuzu_logical_type_570425810 ## Generated based on /usr/include/kuzu.h:183:3
+    internal_data_type*: pointer ## Generated based on /usr/include/kuzu.h:187:9
+  kuzu_logical_type_570425811 = struct_kuzu_logical_type_570425810 ## Generated based on /usr/include/kuzu.h:189:3
   struct_kuzu_value_570425813 {.pure, inheritable, bycopy.} = object
-    internal_value*: pointer ## Generated based on /usr/include/kuzu.h:188:9
+    internal_value*: pointer ## Generated based on /usr/include/kuzu.h:194:9
     internal_is_owned_by_cpp*: bool
-  kuzu_value_570425815 = struct_kuzu_value_570425814 ## Generated based on /usr/include/kuzu.h:191:3
+  kuzu_value_570425815 = struct_kuzu_value_570425814 ## Generated based on /usr/include/kuzu.h:197:3
   struct_kuzu_internal_id_t_570425817 {.pure, inheritable, bycopy.} = object
-    table_id*: uint64        ## Generated based on /usr/include/kuzu.h:196:9
+    table_id*: uint64        ## Generated based on /usr/include/kuzu.h:202:9
     offset*: uint64
-  kuzu_internal_id_t_570425819 = struct_kuzu_internal_id_t_570425818 ## Generated based on /usr/include/kuzu.h:199:3
+  kuzu_internal_id_t_570425819 = struct_kuzu_internal_id_t_570425818 ## Generated based on /usr/include/kuzu.h:205:3
   struct_kuzu_date_t_570425821 {.pure, inheritable, bycopy.} = object
-    days*: int32             ## Generated based on /usr/include/kuzu.h:204:9
-  kuzu_date_t_570425823 = struct_kuzu_date_t_570425822 ## Generated based on /usr/include/kuzu.h:207:3
+    days*: int32             ## Generated based on /usr/include/kuzu.h:210:9
+  kuzu_date_t_570425823 = struct_kuzu_date_t_570425822 ## Generated based on /usr/include/kuzu.h:213:3
   struct_kuzu_timestamp_ns_t_570425825 {.pure, inheritable, bycopy.} = object
-    value*: int64            ## Generated based on /usr/include/kuzu.h:213:9
-  kuzu_timestamp_ns_t_570425827 = struct_kuzu_timestamp_ns_t_570425826 ## Generated based on /usr/include/kuzu.h:216:3
+    value*: int64            ## Generated based on /usr/include/kuzu.h:219:9
+  kuzu_timestamp_ns_t_570425827 = struct_kuzu_timestamp_ns_t_570425826 ## Generated based on /usr/include/kuzu.h:222:3
   struct_kuzu_timestamp_ms_t_570425829 {.pure, inheritable, bycopy.} = object
-    value*: int64            ## Generated based on /usr/include/kuzu.h:222:9
-  kuzu_timestamp_ms_t_570425831 = struct_kuzu_timestamp_ms_t_570425830 ## Generated based on /usr/include/kuzu.h:225:3
+    value*: int64            ## Generated based on /usr/include/kuzu.h:228:9
+  kuzu_timestamp_ms_t_570425831 = struct_kuzu_timestamp_ms_t_570425830 ## Generated based on /usr/include/kuzu.h:231:3
   struct_kuzu_timestamp_sec_t_570425833 {.pure, inheritable, bycopy.} = object
-    value*: int64            ## Generated based on /usr/include/kuzu.h:231:9
-  kuzu_timestamp_sec_t_570425835 = struct_kuzu_timestamp_sec_t_570425834 ## Generated based on /usr/include/kuzu.h:234:3
+    value*: int64            ## Generated based on /usr/include/kuzu.h:237:9
+  kuzu_timestamp_sec_t_570425835 = struct_kuzu_timestamp_sec_t_570425834 ## Generated based on /usr/include/kuzu.h:240:3
   struct_kuzu_timestamp_tz_t_570425837 {.pure, inheritable, bycopy.} = object
-    value*: int64            ## Generated based on /usr/include/kuzu.h:240:9
-  kuzu_timestamp_tz_t_570425839 = struct_kuzu_timestamp_tz_t_570425838 ## Generated based on /usr/include/kuzu.h:243:3
+    value*: int64            ## Generated based on /usr/include/kuzu.h:246:9
+  kuzu_timestamp_tz_t_570425839 = struct_kuzu_timestamp_tz_t_570425838 ## Generated based on /usr/include/kuzu.h:249:3
   struct_kuzu_timestamp_t_570425841 {.pure, inheritable, bycopy.} = object
-    value*: int64            ## Generated based on /usr/include/kuzu.h:249:9
-  kuzu_timestamp_t_570425843 = struct_kuzu_timestamp_t_570425842 ## Generated based on /usr/include/kuzu.h:252:3
+    value*: int64            ## Generated based on /usr/include/kuzu.h:255:9
+  kuzu_timestamp_t_570425843 = struct_kuzu_timestamp_t_570425842 ## Generated based on /usr/include/kuzu.h:258:3
   struct_kuzu_interval_t_570425845 {.pure, inheritable, bycopy.} = object
-    months*: int32           ## Generated based on /usr/include/kuzu.h:257:9
+    months*: int32           ## Generated based on /usr/include/kuzu.h:263:9
     days*: int32
     micros*: int64
-  kuzu_interval_t_570425847 = struct_kuzu_interval_t_570425846 ## Generated based on /usr/include/kuzu.h:261:3
+  kuzu_interval_t_570425847 = struct_kuzu_interval_t_570425846 ## Generated based on /usr/include/kuzu.h:267:3
   struct_kuzu_query_summary_570425849 {.pure, inheritable, bycopy.} = object
-    internal_query_summary*: pointer ## Generated based on /usr/include/kuzu.h:267:9
-  kuzu_query_summary_570425851 = struct_kuzu_query_summary_570425850 ## Generated based on /usr/include/kuzu.h:269:3
+    internal_query_summary*: pointer ## Generated based on /usr/include/kuzu.h:273:9
+  kuzu_query_summary_570425851 = struct_kuzu_query_summary_570425850 ## Generated based on /usr/include/kuzu.h:275:3
   struct_kuzu_int128_t_570425853 {.pure, inheritable, bycopy.} = object
-    low*: uint64             ## Generated based on /usr/include/kuzu.h:271:9
+    low*: uint64             ## Generated based on /usr/include/kuzu.h:277:9
     high*: int64
-  kuzu_int128_t_570425855 = struct_kuzu_int128_t_570425854 ## Generated based on /usr/include/kuzu.h:274:3
-  kuzu_data_type_id_570425859 = enum_kuzu_data_type_id_570425858 ## Generated based on /usr/include/kuzu.h:319:3
-  kuzu_state_570425863 = enum_kuzu_state_570425862 ## Generated based on /usr/include/kuzu.h:324:49
+  kuzu_int128_t_570425855 = struct_kuzu_int128_t_570425854 ## Generated based on /usr/include/kuzu.h:280:3
+  kuzu_data_type_id_570425859 = enum_kuzu_data_type_id_570425858 ## Generated based on /usr/include/kuzu.h:325:3
+  kuzu_state_570425863 = enum_kuzu_state_570425862 ## Generated based on /usr/include/kuzu.h:330:49
   struct_tm_570425865 {.pure, inheritable, bycopy.} = object
-    tm_sec*: cint            ## Generated based on /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:7:8
+    tm_sec*: cint            ## Generated based on /usr/include/bits/types/struct_tm.h:7:8
     tm_min*: cint
     tm_hour*: cint
     tm_mday*: cint
@@ -150,7 +150,7 @@ type
         warning("Declaration of " & "struct_kuzu_prepared_statement" &
             " exists but with different size")
     struct_kuzu_prepared_statement
-   else:
+  else:
     struct_kuzu_prepared_statement_570425797)
   kuzu_flat_tuple_570425808 = (when declared(kuzu_flat_tuple):
     when ownSizeof(kuzu_flat_tuple) != ownSizeof(kuzu_flat_tuple_570425807):
@@ -158,7 +158,7 @@ type
         warning("Declaration of " & "kuzu_flat_tuple" &
             " exists but with different size")
     kuzu_flat_tuple
-   else:
+  else:
     kuzu_flat_tuple_570425807)
   struct_kuzu_timestamp_sec_t_570425834 = (when declared(
       struct_kuzu_timestamp_sec_t):
@@ -168,7 +168,7 @@ type
         warning("Declaration of " & "struct_kuzu_timestamp_sec_t" &
             " exists but with different size")
     struct_kuzu_timestamp_sec_t
-   else:
+  else:
     struct_kuzu_timestamp_sec_t_570425833)
   kuzu_timestamp_tz_t_570425840 = (when declared(kuzu_timestamp_tz_t):
     when ownSizeof(kuzu_timestamp_tz_t) != ownSizeof(kuzu_timestamp_tz_t_570425839):
@@ -176,7 +176,7 @@ type
         warning("Declaration of " & "kuzu_timestamp_tz_t" &
             " exists but with different size")
     kuzu_timestamp_tz_t
-   else:
+  else:
     kuzu_timestamp_tz_t_570425839)
   struct_kuzu_timestamp_t_570425842 = (when declared(struct_kuzu_timestamp_t):
     when ownSizeof(struct_kuzu_timestamp_t) !=
@@ -185,7 +185,7 @@ type
         warning("Declaration of " & "struct_kuzu_timestamp_t" &
             " exists but with different size")
     struct_kuzu_timestamp_t
-   else:
+  else:
     struct_kuzu_timestamp_t_570425841)
   kuzu_query_summary_570425852 = (when declared(kuzu_query_summary):
     when ownSizeof(kuzu_query_summary) != ownSizeof(kuzu_query_summary_570425851):
@@ -193,7 +193,7 @@ type
         warning("Declaration of " & "kuzu_query_summary" &
             " exists but with different size")
     kuzu_query_summary
-   else:
+  else:
     kuzu_query_summary_570425851)
   kuzu_timestamp_ns_t_570425828 = (when declared(kuzu_timestamp_ns_t):
     when ownSizeof(kuzu_timestamp_ns_t) != ownSizeof(kuzu_timestamp_ns_t_570425827):
@@ -201,7 +201,7 @@ type
         warning("Declaration of " & "kuzu_timestamp_ns_t" &
             " exists but with different size")
     kuzu_timestamp_ns_t
-   else:
+  else:
     kuzu_timestamp_ns_t_570425827)
   struct_kuzu_timestamp_ms_t_570425830 = (when declared(
       struct_kuzu_timestamp_ms_t):
@@ -211,7 +211,7 @@ type
         warning("Declaration of " & "struct_kuzu_timestamp_ms_t" &
             " exists but with different size")
     struct_kuzu_timestamp_ms_t
-   else:
+  else:
     struct_kuzu_timestamp_ms_t_570425829)
   kuzu_data_type_id_570425860 = (when declared(kuzu_data_type_id):
     when ownSizeof(kuzu_data_type_id) != ownSizeof(kuzu_data_type_id_570425859):
@@ -219,7 +219,7 @@ type
         warning("Declaration of " & "kuzu_data_type_id" &
             " exists but with different size")
     kuzu_data_type_id
-   else:
+  else:
     kuzu_data_type_id_570425859)
   enum_kuzu_state_570425862 = (when declared(enum_kuzu_state):
     when ownSizeof(enum_kuzu_state) != ownSizeof(enum_kuzu_state_570425861):
@@ -227,7 +227,7 @@ type
         warning("Declaration of " & "enum_kuzu_state" &
             " exists but with different size")
     enum_kuzu_state
-   else:
+  else:
     enum_kuzu_state_570425861)
   kuzu_date_t_570425824 = (when declared(kuzu_date_t):
     when ownSizeof(kuzu_date_t) != ownSizeof(kuzu_date_t_570425823):
@@ -235,7 +235,7 @@ type
         warning("Declaration of " & "kuzu_date_t" &
             " exists but with different size")
     kuzu_date_t
-   else:
+  else:
     kuzu_date_t_570425823)
   kuzu_state_570425864 = (when declared(kuzu_state):
     when ownSizeof(kuzu_state) != ownSizeof(kuzu_state_570425863):
@@ -243,7 +243,7 @@ type
         warning("Declaration of " & "kuzu_state" &
             " exists but with different size")
     kuzu_state
-   else:
+  else:
     kuzu_state_570425863)
   kuzu_timestamp_ms_t_570425832 = (when declared(kuzu_timestamp_ms_t):
     when ownSizeof(kuzu_timestamp_ms_t) != ownSizeof(kuzu_timestamp_ms_t_570425831):
@@ -251,7 +251,7 @@ type
         warning("Declaration of " & "kuzu_timestamp_ms_t" &
             " exists but with different size")
     kuzu_timestamp_ms_t
-   else:
+  else:
     kuzu_timestamp_ms_t_570425831)
   struct_kuzu_flat_tuple_570425806 = (when declared(struct_kuzu_flat_tuple):
     when ownSizeof(struct_kuzu_flat_tuple) != ownSizeof(struct_kuzu_flat_tuple_570425805):
@@ -259,7 +259,7 @@ type
         warning("Declaration of " & "struct_kuzu_flat_tuple" &
             " exists but with different size")
     struct_kuzu_flat_tuple
-   else:
+  else:
     struct_kuzu_flat_tuple_570425805)
   struct_kuzu_connection_570425794 = (when declared(struct_kuzu_connection):
     when ownSizeof(struct_kuzu_connection) != ownSizeof(struct_kuzu_connection_570425793):
@@ -267,7 +267,7 @@ type
         warning("Declaration of " & "struct_kuzu_connection" &
             " exists but with different size")
     struct_kuzu_connection
-   else:
+  else:
     struct_kuzu_connection_570425793)
   struct_kuzu_date_t_570425822 = (when declared(struct_kuzu_date_t):
     when ownSizeof(struct_kuzu_date_t) != ownSizeof(struct_kuzu_date_t_570425821):
@@ -275,7 +275,7 @@ type
         warning("Declaration of " & "struct_kuzu_date_t" &
             " exists but with different size")
     struct_kuzu_date_t
-   else:
+  else:
     struct_kuzu_date_t_570425821)
   struct_kuzu_timestamp_tz_t_570425838 = (when declared(
       struct_kuzu_timestamp_tz_t):
@@ -285,7 +285,7 @@ type
         warning("Declaration of " & "struct_kuzu_timestamp_tz_t" &
             " exists but with different size")
     struct_kuzu_timestamp_tz_t
-   else:
+  else:
     struct_kuzu_timestamp_tz_t_570425837)
   struct_kuzu_interval_t_570425846 = (when declared(struct_kuzu_interval_t):
     when ownSizeof(struct_kuzu_interval_t) != ownSizeof(struct_kuzu_interval_t_570425845):
@@ -293,7 +293,7 @@ type
         warning("Declaration of " & "struct_kuzu_interval_t" &
             " exists but with different size")
     struct_kuzu_interval_t
-   else:
+  else:
     struct_kuzu_interval_t_570425845)
   kuzu_int128_t_570425856 = (when declared(kuzu_int128_t):
     when ownSizeof(kuzu_int128_t) != ownSizeof(kuzu_int128_t_570425855):
@@ -301,7 +301,7 @@ type
         warning("Declaration of " & "kuzu_int128_t" &
             " exists but with different size")
     kuzu_int128_t
-   else:
+  else:
     kuzu_int128_t_570425855)
   struct_kuzu_system_config_570425786 = (when declared(struct_kuzu_system_config):
     when ownSizeof(struct_kuzu_system_config) !=
@@ -310,7 +310,7 @@ type
         warning("Declaration of " & "struct_kuzu_system_config" &
             " exists but with different size")
     struct_kuzu_system_config
-   else:
+  else:
     struct_kuzu_system_config_570425785)
   kuzu_connection_570425796 = (when declared(kuzu_connection):
     when ownSizeof(kuzu_connection) != ownSizeof(kuzu_connection_570425795):
@@ -318,7 +318,7 @@ type
         warning("Declaration of " & "kuzu_connection" &
             " exists but with different size")
     kuzu_connection
-   else:
+  else:
     kuzu_connection_570425795)
   struct_ArrowSchema_570425782 = (when declared(struct_ArrowSchema):
     when ownSizeof(struct_ArrowSchema) != ownSizeof(struct_ArrowSchema_570425781):
@@ -326,7 +326,7 @@ type
         warning("Declaration of " & "struct_ArrowSchema" &
             " exists but with different size")
     struct_ArrowSchema
-   else:
+  else:
     struct_ArrowSchema_570425781)
   kuzu_prepared_statement_570425800 = (when declared(kuzu_prepared_statement):
     when ownSizeof(kuzu_prepared_statement) !=
@@ -335,7 +335,7 @@ type
         warning("Declaration of " & "kuzu_prepared_statement" &
             " exists but with different size")
     kuzu_prepared_statement
-   else:
+  else:
     kuzu_prepared_statement_570425799)
   struct_kuzu_value_570425814 = (when declared(struct_kuzu_value):
     when ownSizeof(struct_kuzu_value) != ownSizeof(struct_kuzu_value_570425813):
@@ -343,7 +343,7 @@ type
         warning("Declaration of " & "struct_kuzu_value" &
             " exists but with different size")
     struct_kuzu_value
-   else:
+  else:
     struct_kuzu_value_570425813)
   kuzu_internal_id_t_570425820 = (when declared(kuzu_internal_id_t):
     when ownSizeof(kuzu_internal_id_t) != ownSizeof(kuzu_internal_id_t_570425819):
@@ -351,7 +351,7 @@ type
         warning("Declaration of " & "kuzu_internal_id_t" &
             " exists but with different size")
     kuzu_internal_id_t
-   else:
+  else:
     kuzu_internal_id_t_570425819)
   kuzu_system_config_570425788 = (when declared(kuzu_system_config):
     when ownSizeof(kuzu_system_config) != ownSizeof(kuzu_system_config_570425787):
@@ -359,7 +359,7 @@ type
         warning("Declaration of " & "kuzu_system_config" &
             " exists but with different size")
     kuzu_system_config
-   else:
+  else:
     kuzu_system_config_570425787)
   struct_tm_570425866 = (when declared(struct_tm):
     when ownSizeof(struct_tm) != ownSizeof(struct_tm_570425865):
@@ -367,7 +367,7 @@ type
         warning("Declaration of " & "struct_tm" &
             " exists but with different size")
     struct_tm
-   else:
+  else:
     struct_tm_570425865)
   struct_kuzu_query_result_570425802 = (when declared(struct_kuzu_query_result):
     when ownSizeof(struct_kuzu_query_result) !=
@@ -376,7 +376,7 @@ type
         warning("Declaration of " & "struct_kuzu_query_result" &
             " exists but with different size")
     struct_kuzu_query_result
-   else:
+  else:
     struct_kuzu_query_result_570425801)
   struct_kuzu_database_570425790 = (when declared(struct_kuzu_database):
     when ownSizeof(struct_kuzu_database) != ownSizeof(struct_kuzu_database_570425789):
@@ -384,7 +384,7 @@ type
         warning("Declaration of " & "struct_kuzu_database" &
             " exists but with different size")
     struct_kuzu_database
-   else:
+  else:
     struct_kuzu_database_570425789)
   struct_kuzu_timestamp_ns_t_570425826 = (when declared(
       struct_kuzu_timestamp_ns_t):
@@ -394,7 +394,7 @@ type
         warning("Declaration of " & "struct_kuzu_timestamp_ns_t" &
             " exists but with different size")
     struct_kuzu_timestamp_ns_t
-   else:
+  else:
     struct_kuzu_timestamp_ns_t_570425825)
   kuzu_interval_t_570425848 = (when declared(kuzu_interval_t):
     when ownSizeof(kuzu_interval_t) != ownSizeof(kuzu_interval_t_570425847):
@@ -402,7 +402,7 @@ type
         warning("Declaration of " & "kuzu_interval_t" &
             " exists but with different size")
     kuzu_interval_t
-   else:
+  else:
     kuzu_interval_t_570425847)
   struct_kuzu_int128_t_570425854 = (when declared(struct_kuzu_int128_t):
     when ownSizeof(struct_kuzu_int128_t) != ownSizeof(struct_kuzu_int128_t_570425853):
@@ -410,7 +410,7 @@ type
         warning("Declaration of " & "struct_kuzu_int128_t" &
             " exists but with different size")
     struct_kuzu_int128_t
-   else:
+  else:
     struct_kuzu_int128_t_570425853)
   struct_ArrowArray_570425784 = (when declared(struct_ArrowArray):
     when ownSizeof(struct_ArrowArray) != ownSizeof(struct_ArrowArray_570425783):
@@ -418,7 +418,7 @@ type
         warning("Declaration of " & "struct_ArrowArray" &
             " exists but with different size")
     struct_ArrowArray
-   else:
+  else:
     struct_ArrowArray_570425783)
   struct_kuzu_logical_type_570425810 = (when declared(struct_kuzu_logical_type):
     when ownSizeof(struct_kuzu_logical_type) !=
@@ -427,7 +427,7 @@ type
         warning("Declaration of " & "struct_kuzu_logical_type" &
             " exists but with different size")
     struct_kuzu_logical_type
-   else:
+  else:
     struct_kuzu_logical_type_570425809)
   struct_kuzu_query_summary_570425850 = (when declared(struct_kuzu_query_summary):
     when ownSizeof(struct_kuzu_query_summary) !=
@@ -436,7 +436,7 @@ type
         warning("Declaration of " & "struct_kuzu_query_summary" &
             " exists but with different size")
     struct_kuzu_query_summary
-   else:
+  else:
     struct_kuzu_query_summary_570425849)
   kuzu_logical_type_570425812 = (when declared(kuzu_logical_type):
     when ownSizeof(kuzu_logical_type) != ownSizeof(kuzu_logical_type_570425811):
@@ -444,7 +444,7 @@ type
         warning("Declaration of " & "kuzu_logical_type" &
             " exists but with different size")
     kuzu_logical_type
-   else:
+  else:
     kuzu_logical_type_570425811)
   kuzu_value_570425816 = (when declared(kuzu_value):
     when ownSizeof(kuzu_value) != ownSizeof(kuzu_value_570425815):
@@ -452,7 +452,7 @@ type
         warning("Declaration of " & "kuzu_value" &
             " exists but with different size")
     kuzu_value
-   else:
+  else:
     kuzu_value_570425815)
   kuzu_timestamp_sec_t_570425836 = (when declared(kuzu_timestamp_sec_t):
     when ownSizeof(kuzu_timestamp_sec_t) != ownSizeof(kuzu_timestamp_sec_t_570425835):
@@ -460,7 +460,7 @@ type
         warning("Declaration of " & "kuzu_timestamp_sec_t" &
             " exists but with different size")
     kuzu_timestamp_sec_t
-   else:
+  else:
     kuzu_timestamp_sec_t_570425835)
   enum_kuzu_data_type_id_570425858 = (when declared(enum_kuzu_data_type_id):
     when ownSizeof(enum_kuzu_data_type_id) != ownSizeof(enum_kuzu_data_type_id_570425857):
@@ -468,7 +468,7 @@ type
         warning("Declaration of " & "enum_kuzu_data_type_id" &
             " exists but with different size")
     enum_kuzu_data_type_id
-   else:
+  else:
     enum_kuzu_data_type_id_570425857)
   kuzu_query_result_570425804 = (when declared(kuzu_query_result):
     when ownSizeof(kuzu_query_result) != ownSizeof(kuzu_query_result_570425803):
@@ -476,7 +476,7 @@ type
         warning("Declaration of " & "kuzu_query_result" &
             " exists but with different size")
     kuzu_query_result
-   else:
+  else:
     kuzu_query_result_570425803)
   struct_kuzu_internal_id_t_570425818 = (when declared(struct_kuzu_internal_id_t):
     when ownSizeof(struct_kuzu_internal_id_t) !=
@@ -485,7 +485,7 @@ type
         warning("Declaration of " & "struct_kuzu_internal_id_t" &
             " exists but with different size")
     struct_kuzu_internal_id_t
-   else:
+  else:
     struct_kuzu_internal_id_t_570425817)
   kuzu_database_570425792 = (when declared(kuzu_database):
     when ownSizeof(kuzu_database) != ownSizeof(kuzu_database_570425791):
@@ -493,7 +493,7 @@ type
         warning("Declaration of " & "kuzu_database" &
             " exists but with different size")
     kuzu_database
-   else:
+  else:
     kuzu_database_570425791)
   kuzu_timestamp_t_570425844 = (when declared(kuzu_timestamp_t):
     when ownSizeof(kuzu_timestamp_t) != ownSizeof(kuzu_timestamp_t_570425843):
@@ -501,7 +501,7 @@ type
         warning("Declaration of " & "kuzu_timestamp_t" &
             " exists but with different size")
     kuzu_timestamp_t
-   else:
+  else:
     kuzu_timestamp_t_570425843)
 when not declared(struct_kuzu_prepared_statement):
   type

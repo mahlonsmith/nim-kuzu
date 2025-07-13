@@ -13,7 +13,7 @@ requires "nim ^= 2.0.0"
 #requires "zip ^= 0.3.1"
 
 task makewrapper, "Generate the C wrapper using Futhark":
-    exec "nim c -d:futharkWrap --outdir=. src/kuzu.nim"
+    exec "nim c -d:futharkWrap --outdir=tmp/ src/kuzu.nim"
 
 task test, "Run the test suite.":
     exec "testament --megatest:off all"

@@ -22,7 +22,7 @@ import kuzu
 const DB = "imdb"
 const DOT = "imdb-results.dot"
 
-if not DB.dirExists:
+if not DB.fileExists:
     echo """Cowardly refusing to run without an imdb database.
     (see: imdb_import in this directory.)"""
     quit 1

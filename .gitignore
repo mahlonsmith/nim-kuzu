@@ -1,0 +1,9 @@
+experiments/imdb/*
+nimble.paths
+config.nims
+tmp/*
+kuzu
+nimcache/*
+tests/*
+testresults/*
+
