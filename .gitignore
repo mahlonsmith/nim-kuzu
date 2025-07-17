@@ -6,4 +6,5 @@ kuzu
 nimcache/*
 tests/*
 testresults/*
+testresults.html
 

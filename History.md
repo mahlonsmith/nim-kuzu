@@ -1,6 +1,20 @@
 # Release History for nim-kuzu
 
 ---
+## v0.6.0 [2025-07-17] Mahlon E. Smith <mahlon@martini.nu>
+
+Enhancement:
+
+- Provide functions for retreiving multiple result sets from a
+  single primary query object.
+
+
+Minutiae:
+
+- Add a KuzuInterationError, to disambiguate iteration errors from
+  IndexErrors.
+
+---
 ## v0.5.0 [2025-07-13] Mahlon E. Smith <mahlon@martini.nu>
 
 Bump for kuzu 0.11.0.  No practical changes.
@@ -17,7 +31,7 @@ Bump for kuzu 0.10.0.  No practical changes.
 
 Enhancement:
 
- - Add `toBlob` for quickly fetching a sequence of opaque bytes.
+- Add `toBlob` for quickly fetching a sequence of opaque bytes.
 
 
 ---
@@ -34,4 +48,3 @@ so update version to reflect the 0.9.0 release.
 ## v0.1.0 [2025-03-31] Mahlon E. Smith <mahlon@martini.nu>
 
 Initial public release.
-

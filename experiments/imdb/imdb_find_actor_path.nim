@@ -19,7 +19,7 @@ import
     std/strformat
 import kuzu
 
-const DB = "imdb"
+const DB = "imdb.kz"
 const DOT = "imdb-results.dot"
 
 if not DB.fileExists:
@@ -37,7 +37,7 @@ var res:  KuzuQueryResult
 var fromActor = paramStr(1)
 var toActor   = paramStr(2)
 
-var db = newKuzuDatabase( "imdb", kuzuConfig(read_only=true) )
+var db = newKuzuDatabase( DB, kuzuConfig(read_only=true) )
 var conn = db.connect
 
 echo "Database opened: ", db.path

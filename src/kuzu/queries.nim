@@ -147,19 +147,45 @@ func hasNext*( query: KuzuQueryResult ): bool =
 
 
 func getNext*( query: KuzuQueryResult ): KuzuFlatTuple =
-    ## Consume and return the next tuple result, or raise a KuzuIndexError
-    ## if at the end of the result set.
+    ## Consume and return the next tuple result, or raise a KuzuIterationError
+    ## if at the end of the result tuples.
     result = new KuzuFlatTuple
     if kuzu_query_result_get_next( addr query.handle, addr result.handle ) == KuzuSuccess:
         result.valid = true
         result.num_columns = query.num_columns
     else:
-        raise newException( KuzuIndexError, &"Query iteration past end." )
+        raise newException( KuzuIterationError, &"Query iteration past end of tuples." )
 
 
 func rewind*( query: KuzuQueryResult ) =
     ## Reset query iteration back to the beginning.
     kuzu_query_result_reset_iterator( addr query.handle )
+
+
+func hasNextSet*( query: KuzuQueryResult ): bool =
+    ## Returns +true+ if there are more result sets to be consumed.
+    result = kuzu_query_result_has_next_query_result( addr query.handle )
+
+
+# Keeping this private, because it's only safe to call from within
+# an iterator -- overwriting a query variable with the next result
+# goes boom.
+func getNextSet( query: KuzuQueryResult ): KuzuQueryResult =
+    ## Consume and return the next query set result, or raise a KuzuIterationError
+    ## if at the end of sets.
+    result = new KuzuQueryResult
+    if kuzu_query_result_get_next_query_result( addr query.handle, addr result.handle ) == KuzuSuccess:
+        result.valid = true
+        result.getQueryMetadata()
+    else:
+        raise newException( KuzuIterationError, &"Query iteration past end of set." )
+
+
+iterator sets*( query: KuzuQueryResult ): KuzuQueryResult =
+    ## Iterate available query result sets, yielding to the block.
+    while query.hasNextSet:
+        yield query.getNextSet
+    # NOTE: There is no 'rewind' mechanism for result sets.
 
 
 iterator items*( query: KuzuQueryResult ): KuzuFlatTuple =
