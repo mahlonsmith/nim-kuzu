@@ -63,13 +63,13 @@ var db = newKuzuDatabase()
 ```
 
 ```nim
-# "db" is persistent, stored in the directory "data".
-var db = newKuzuDatabase("data")
+# "db" is persistent, stored in the file "data.kz".
+var db = newKuzuDatabase("data.kz")
 ```
 The database path is retained, and can be recalled via `db.path`.
 
 ```nim
-db.path #=> "data"
+db.path #=> "data.kz"
 ```
 
 ### Database Configuration
@@ -91,7 +91,7 @@ object as the second argument to `newKuzuDatabase()`:
 
 ```nim
 # Open a readonly handle.
-var db = newKuzuDatabase( "data", kuzuConfig( read_only=true ) )
+var db = newKuzuDatabase( "data.kz", kuzuConfig( read_only=true ) )
 ```
 
 ### The Connection
