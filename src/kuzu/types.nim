@@ -48,8 +48,9 @@ type
         keys*: seq[ string ]
     KuzuStructValue* = ref KuzuStructValueObj
 
-    KuzuException*  = object of CatchableError
-    KuzuQueryError* = object of KuzuException
-    KuzuIndexError* = object of KuzuException
-    KuzuTypeError*  = object of KuzuException
+    KuzuException*      = object of CatchableError
+    KuzuQueryError*     = object of KuzuException
+    KuzuIndexError*     = object of KuzuException
+    KuzuIterationError* = object of KuzuException
+    KuzuTypeError*      = object of KuzuException
 
