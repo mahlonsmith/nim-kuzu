@@ -20,7 +20,7 @@ import
     zip/gzipfiles,
     kuzu
 
-const DB     = "imdb"
+const DB     = "imdb.kz"
 const SOURCE = "https://datasets.imdbws.com"
 const FILES  = @[ "name.basics", "title.basics", "title.principals" ]
 

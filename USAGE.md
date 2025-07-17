@@ -308,13 +308,13 @@ for pair in res.column_names.zip( res.column_types ):
   # ("e.activity", KUZU_TIMESTAMP)
 ```
 
-## Reading Result Sets
+## Reading Results
 
 So far we've just been showing values by converting the entire `KuzuQueryResult`
 to a string.  Convenient for quick examples and debugging, but not much else.
 
 A `KuzuQueryResult` is an iterator. You can use regular Nim functions that yield
-each `KuzuFlatTuple` -- essentially, each row that was returned in the set.
+each `KuzuFlatTuple` -- essentially, each row that was returned in a result set.
 
 ```nim
 var res = conn.query """
@@ -350,10 +350,50 @@ if res.hasNext:
 
 echo res.getNext #=> 2
 echo res.getNext #=> 3
-echo res.getNext #=> KuzuIndexError exception!
+echo res.getNext #=> KuzuIterationError exception!
 ```
 
 Manually rewind the `KuzuQueryResult` via `rewind()`.
+
+
+## Multiple Query Results
+
+A query can potentially return any number of separate statements.  Iterate over
+linked `KuzuQueryResult` objects with the `sets()` iterator.
+
+```nim
+import kuzu
+
+let db = newKuzuDatabase()
+let conn = db.connect
+
+let query = conn.query """
+  UNWIND [1,2,3] as items
+  RETURN items;
+
+  UNWIND [4,5,6] as items
+  RETURN items;
+
+  UNWIND [7,8,9] as items
+  RETURN items;
+"""
+
+for row in query:
+  echo row
+  # 1
+  # 2
+  # 3
+
+for set in query.sets:
+  for row in set:
+    echo row
+    # 4
+    # 5
+    # 6
+    # 7
+    # 8
+    # 9
+```
 
 
 ## Working with Values

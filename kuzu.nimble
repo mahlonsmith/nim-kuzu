@@ -1,6 +1,6 @@
 # vim: set et sta sw=4 ts=4 :
 
-version     = "0.5.0"
+version     = "0.6.0"
 author      = "Mahlon E. Smith"
 description = "Kuzu is an embedded graph database built for query speed and scalability."
 license     = "BSD-3-Clause"
