@@ -21,6 +21,7 @@ type
         execution_time*: cdouble = 0
         column_types*:   seq[ kuzu_data_type_id ]
         column_names*:   seq[ string ]
+        sets*:           seq[ KuzuQueryResult ]
         valid = false
     KuzuQueryResult* = ref KuzuQueryResultObj
 

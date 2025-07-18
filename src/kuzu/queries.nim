@@ -7,7 +7,12 @@ proc `=destroy`*( query: KuzuQueryResultObj ) =
         kuzu_query_result_destroy( addr query.handle )
 
 
-func getQueryMetadata( query: KuzuQueryResult ) =
+# Forward declarations.
+func hasNextSet( query: KuzuQueryResult ): bool
+func getNextSet( query: KuzuQueryResult ): KuzuQueryResult
+
+
+func getQueryMetadata( query: KuzuQueryResult, getAllQueryResults=false ) =
     ## Find and retain additional data for the query.
     query.num_columns = kuzu_query_result_get_num_columns( addr query.handle )
     query.num_tuples  = kuzu_query_result_get_num_tuples( addr query.handle )
@@ -18,6 +23,12 @@ func getQueryMetadata( query: KuzuQueryResult ) =
     query.compile_time   = kuzu_query_summary_get_compiling_time( addr summary )
     query.execution_time = kuzu_query_summary_get_execution_time( addr summary )
     kuzu_query_summary_destroy( addr summary )
+
+    # Pull any additional query results.
+    query.sets = @[]
+    if getAllQueryResults:
+        while query.hasNextSet:
+            query.sets.add( query.getNextSet )
 
     # Column information.
     query.column_types = @[]
@@ -48,13 +59,29 @@ func getQueryMetadata( query: KuzuQueryResult ) =
         kuzu_destroy_string( name )
 
 
+func hasNextSet( query: KuzuQueryResult ): bool =
+    ## Returns +true+ if there are more result sets to be consumed.
+    result = kuzu_query_result_has_next_query_result( addr query.handle )
+
+
+func getNextSet( query: KuzuQueryResult ): KuzuQueryResult =
+    ## Consume and return the next query set result, or raise a KuzuIterationError
+    ## if at the end of sets.
+    result = new KuzuQueryResult
+    if kuzu_query_result_get_next_query_result( addr query.handle, addr result.handle ) == KuzuSuccess:
+        result.valid = true
+        result.getQueryMetadata()
+    else:
+        raise newException( KuzuIterationError, &"Query iteration past end of set." )
+
+
 func query*( conn: KuzuConnection, query: string ): KuzuQueryResult =
     ## Perform a database +query+ and return the result.
     result = new KuzuQueryResult
 
     if kuzu_connection_query( addr conn.handle, query, addr result.handle ) == KuzuSuccess:
         result.valid = true
-        result.getQueryMetadata()
+        result.getQueryMetadata( getAllQueryResults=true )
     else:
         var err = kuzu_query_result_get_error_message( addr result.handle )
         raise newException( KuzuQueryError, &"Error running query: {err}" )
@@ -160,32 +187,6 @@ func getNext*( query: KuzuQueryResult ): KuzuFlatTuple =
 func rewind*( query: KuzuQueryResult ) =
     ## Reset query iteration back to the beginning.
     kuzu_query_result_reset_iterator( addr query.handle )
-
-
-func hasNextSet*( query: KuzuQueryResult ): bool =
-    ## Returns +true+ if there are more result sets to be consumed.
-    result = kuzu_query_result_has_next_query_result( addr query.handle )
-
-
-# Keeping this private, because it's only safe to call from within
-# an iterator -- overwriting a query variable with the next result
-# goes boom.
-func getNextSet( query: KuzuQueryResult ): KuzuQueryResult =
-    ## Consume and return the next query set result, or raise a KuzuIterationError
-    ## if at the end of sets.
-    result = new KuzuQueryResult
-    if kuzu_query_result_get_next_query_result( addr query.handle, addr result.handle ) == KuzuSuccess:
-        result.valid = true
-        result.getQueryMetadata()
-    else:
-        raise newException( KuzuIterationError, &"Query iteration past end of set." )
-
-
-iterator sets*( query: KuzuQueryResult ): KuzuQueryResult =
-    ## Iterate available query result sets, yielding to the block.
-    while query.hasNextSet:
-        yield query.getNextSet
-    # NOTE: There is no 'rewind' mechanism for result sets.
 
 
 iterator items*( query: KuzuQueryResult ): KuzuFlatTuple =
