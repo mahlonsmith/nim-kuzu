@@ -4,4 +4,5 @@ import kuzu
 
 var db = newKuzuDatabase()
 assert db.path == "(in-memory)"
+assert db.kind == memory
 

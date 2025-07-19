@@ -1,9 +1,13 @@
 # vim: set et sta sw=4 ts=4 :
 
 type
+    KuzuDBType* = enum
+        disk, memory
+
     KuzuDatabaseObj = object
         handle:  kuzu_database
         path*:   string
+        kind*:   KuzuDBType
         config*: kuzu_system_config
         valid = false
     KuzuDatabase* = ref KuzuDatabaseObj
@@ -21,6 +25,7 @@ type
         execution_time*: cdouble = 0
         column_types*:   seq[ kuzu_data_type_id ]
         column_names*:   seq[ string ]
+        sets*:           seq[ KuzuQueryResult ]
         valid = false
     KuzuQueryResult* = ref KuzuQueryResultObj
 

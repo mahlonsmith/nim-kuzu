@@ -1,10 +1,13 @@
 experiments/imdb/*
+!experiments/imdb/*.nim
+!experiments/imdb/Makefile
 nimble.paths
 config.nims
 tmp/*
 kuzu
 nimcache/*
 tests/*
+!tests/*/t_*.nim
 testresults/*
 testresults.html
 

@@ -358,8 +358,10 @@ Manually rewind the `KuzuQueryResult` via `rewind()`.
 
 ## Multiple Query Results
 
-A query can potentially return any number of separate statements.  Iterate over
-linked `KuzuQueryResult` objects with the `sets()` iterator.
+A query can potentially return any number of separate statements.  In the case
+of more potential `RETURN`s, the query will only contain the first.  Iterate
+over linked `KuzuQueryResult` objects with the `sets()` iterator to retreive the
+remaining:
 
 ```nim
 import kuzu

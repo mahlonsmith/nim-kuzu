@@ -13,6 +13,8 @@ else:
     include "kuzu/0.11.0.nim"
 
 import
+    std/files,
+    std/paths,
     std/strformat,
     std/strutils
 
