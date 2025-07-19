@@ -1,6 +1,22 @@
 # Release History for nim-kuzu
 
 ---
+## v0.6.1 [2025-07-19] Mahlon E. Smith <mahlon@martini.nu>
+
+Bugfix:
+
+- Prefetch query result sets into the primary query object,
+  so iteration can act regularly (breaks and restarts operate
+  as one would expect), and GC works properly.
+
+
+Enhancement:
+
+- Perform file magic checks for better error messaging when
+  attaching to an existing disk-based database.
+
+
+---
 ## v0.6.0 [2025-07-17] Mahlon E. Smith <mahlon@martini.nu>
 
 Enhancement:
@@ -11,8 +27,9 @@ Enhancement:
 
 Minutiae:
 
-- Add a KuzuInterationError, to disambiguate iteration errors from
+- Add a KuzuIterationError, to disambiguate iteration errors from
   IndexErrors.
+
 
 ---
 ## v0.5.0 [2025-07-13] Mahlon E. Smith <mahlon@martini.nu>
