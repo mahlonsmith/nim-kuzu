@@ -18,9 +18,7 @@ task makewrapper, "Generate the C wrapper using Futhark":
 task test, "Run the test suite.":
     exec "testament --megatest:off all"
     exec "testament html"
-
-task clean, "Remove all non-repository artifacts.":
-    exec "fossil clean -x"
+    exec """find tests/ -type f \! -name \*.nim -delete"""
 
 task docs, "Generate automated documentation.":
     exec "nim md2html --project --outdir:docs README.md"
