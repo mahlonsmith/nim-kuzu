@@ -3,7 +3,6 @@ docs/*
 experiments/imdb/*
 !experiments/imdb/Makefile
 !experiments/imdb/*.nim
-kuzu
 nimble.paths
 nimcache/*
 testresults/*

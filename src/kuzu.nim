@@ -7,10 +7,10 @@ when defined( futharkWrap ):
     import futhark, os
 
     importc:
-        outputPath currentSourcePath.parentDir / "kuzu" / "0.11.0.nim"
+        outputPath currentSourcePath.parentDir / "kuzu" / "0.11.1.nim"
         "kuzu.h"
 else:
-    include "kuzu/0.11.0.nim"
+    include "kuzu/0.11.1.nim"
 
 import
     std/files,
